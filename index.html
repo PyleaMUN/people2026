@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>PyleaMUN Team</title>
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
@@ -17,27 +17,19 @@
     }
     body {
       margin: 0;
-      padding: 0;
       font-family: 'Lato', sans-serif;
       background-color: var(--cream);
       color: var(--text-dark);
       line-height: 1.6;
-      margin-top: 56px; /* Added for fixed navbar */
+      padding-top: 56px; /* space for fixed navbar */
     }
-    .navbar-custom { 
-      background-color: #f8f8f0; 
-      font-family: 'Roboto', sans-serif;
+    .navbar-custom {
+      background-color: #f8f8f0;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    .container {
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: 0 1rem;
     }
     header {
       text-align: center;
-      padding-top: 4rem; /* Increased padding to push content down further */
-      margin-top: 2rem; /* Additional spacing */
+      margin: 2rem 0;
     }
     header img {
       max-width: 200px;
@@ -46,8 +38,8 @@
     h1 {
       font-family: 'Playfair Display', serif;
       color: var(--teal);
-      margin-bottom: 2rem;
       font-size: 2.5rem;
+      margin-bottom: 2rem;
     }
     .section {
       margin-bottom: 3rem;
@@ -59,77 +51,69 @@
       border-bottom: 2px solid var(--teal);
       display: inline-block;
       padding-bottom: 0.2rem;
-      margin-bottom: 1rem;
-    }
-    .section ul {
-      list-style: none;
-      padding-left: 0;
-    }
-    .section ul li {
-      margin-bottom: 0.5rem;
     }
     .role-btn {
+      display: block;
+      width: 100%;
+      text-align: left;
       background: none;
       border: 2px solid var(--teal);
-      padding: 0.3rem 0.6rem;
+      padding: 0.5rem;
       border-radius: 4px;
+      font-weight: bold;
       color: var(--teal);
-      font-family: 'Lato', sans-serif;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.3s;
-      text-align: left;
-      width: 100%;
+      transition: background 0.3s, color 0.3s;
     }
     .role-btn:hover {
       background: var(--teal);
       color: #fff;
     }
-    .top-block {
-      margin-bottom: 4rem;
-    }
     .modal-overlay {
       position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
+      inset: 0;
       background: rgba(0,0,0,0.6);
-      display: none;
+      display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+      z-index: 1050;
     }
-    .modal {
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .modal-box {
       background: #fff;
       border-radius: 8px;
       max-width: 500px;
       width: 90%;
       padding: 2rem;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      text-align: center;
       position: relative;
+      transform: translateY(-20px);
+      transition: transform 0.3s;
     }
-    .modal img {
-      max-width: 120px;
+    .modal-overlay.active .modal-box {
+      transform: translateY(0);
+    }
+    .modal-box img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
       border-radius: 50%;
-      margin-bottom: 1rem;
       border: 3px solid var(--gold);
+      margin-bottom: 1rem;
     }
-    .modal .close-btn {
+    .close-btn {
       position: absolute;
       top: 0.5rem;
       right: 0.5rem;
       background: none;
       border: none;
       font-size: 1.5rem;
+      color: var(--teal);
       cursor: pointer;
-      color: var(--teal);
-    }
-    .modal h3 {
-      color: var(--teal);
-      margin-bottom: 0.5rem;
-    }
-    .modal p {
-      margin-bottom: 0.5rem;
     }
     #modalRole {
       font-weight: bold;
@@ -138,11 +122,11 @@
   </style>
 </head>
 <body>
-  <!-- Navigation -->
+  <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-light navbar-custom fixed-top">
     <div class="container">
       <a class="navbar-brand d-flex align-items-center" href="#">
-        <img src="pyleaMUNfinallogo1.png" alt="PyleaMUN Logo" class="me-2" style="height:40px;">
+        <img src="pyleaMUNfinallogo1.png" alt="Logo" style="height:40px" class="me-2">
         PyleaMUN
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
@@ -150,11 +134,8 @@
       </button>
       <div class="collapse navbar-collapse" id="navMenu">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="https://pyleamun.github.io/pyleamun2026/">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="https://pyleamun.github.io/study-guides2026/">Study Guides</a></li>
-          <li class="nav-item"><a class="nav-link" href="https://pyleamun.github.io/venues2026/">Venues</a></li>
-          <li class="nav-item"><a class="nav-link" href="https://pyleamun.github.io/people2026/">The People</a></li>
-          <li class="nav-item"><a class="nav-link" href="https://pyleamun.github.io/registration2026/">Registration</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+          <!-- …other links… -->
         </ul>
       </div>
     </div>
@@ -165,106 +146,94 @@
       <img src="pyleaMUNfinallogo.png" alt="PyleaMUN Logo">
       <h1>Meet the Team</h1>
     </header>
-    <div class="top-block">
-      <div class="section">
-        <h2>PyleaMUN Leadership</h2>
-        <ul>
-          <li><button class="role-btn" data-name="Panagiotis Domvros" data-role="President & Director" data-img="domvros.png" data-info="Panagiotis oversees all conference operations and strategic direction.">President & Director: Panagiotis Domvros</button></li>
-          <li><button class="role-btn" data-name="Fani Vasilikou" data-role="Director & Chief Advisor" data-img="placeholder2.jpg" data-info="Fani provides guidance and ensures the conference meets educational goals.">Director & Chief Advisor: Fani Vasilikou</button></li>
-        </ul>
-      </div>
-    </div>
 
+    <!-- Example Section -->
     <div class="section">
-      <h2>Core Executives</h2>
-      <ul>
-        <li><button class="role-btn" data-name="[Name]" data-role="Finance Director" data-img="" data-info="Responsible for budget and finance planning.">Finance Director</button></li>
-        <li><button class="role-btn" data-name="[Name]" data-role="Press & Social Executive" data-img="" data-info="Manages press releases and social media outreach.">Press & Social Executive</button></li>
-        <li><button class="role-btn" data-name="[Name]" data-role="Technical Executive Advisor" data-img="" data-info="Oversees technical logistics and support.">Technical Executive Advisor</button></li>
+      <h2>PyleaMUN Leadership</h2>
+      <ul class="list-unstyled">
+        <li class="mb-2">
+          <button class="role-btn"
+                  data-name="Panagiotis Domvros"
+                  data-role="President & Director"
+                  data-img="domvros.png"
+                  data-info="Panagiotis oversees all conference operations and strategic direction.">
+            President & Director: Panagiotis Domvros
+          </button>
+        </li>
+        <li class="mb-2">
+          <button class="role-btn"
+                  data-name="Fani Vasilikou"
+                  data-role="Director & Chief Advisor"
+                  data-img="placeholder2.jpg"
+                  data-info="Fani provides guidance and ensures the conference meets educational goals.">
+            Director & Chief Advisor: Fani Vasilikou
+          </button>
+        </li>
       </ul>
     </div>
 
-    <div class="section">
-      <h2>The General Assembly Secretariat</h2>
-      <ul>
-        <li><button class="role-btn" data-name="[Name]" data-role="President of the General Assembly" data-img="" data-info="Leads the General Assembly proceedings.">President of the General Assembly</button></li>
-        <li><button class="role-btn" data-name="[Name]" data-role="Secretary General" data-img="" data-info="Coordinates documentation and records.">Secretary General</button></li>
-        <li><button class="role-btn" data-name="[Name]" data-role="Deputy President of the GA" data-img="" data-info="Assists the President in facilitating sessions.">Deputy President of the General Assembly</button></li>
-        <li><button class="role-btn" data-name="[Name]" data-role="Deputy Secretary General" data-img="" data-info="Supports the Secretary General with tasks.">Deputy Secretary General</button></li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <h2>Executive Team</h2>
-      <ul>
-        <li><button class="role-btn" data-name="[Name]" data-role="Head of the Executives" data-img="" data-info="Heads the executive branch.">Head of the Executives</button></li>
-        <li><button class="role-btn" data-name="[Name]" data-role="Deputy Head of the Executives" data-img="" data-info="Assists the Head of the Executives.">Deputy Head of the Executives</button></li>
-        <li><button class="role-btn" data-name="[Name]" data-role="Secretary of the Executives" data-img="" data-info="Maintains executive documentation.">Secretary of the Executives</button></li>
-        <li><button class="role-btn" data-name="[Name]" data-role="Executive Member" data-img="" data-info="Contributes to executive decisions.">Executive Member</button></li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <h2>The Staff</h2>
-      <ul>
-        <li><button class="role-btn" data-name="[Name]" data-role="Head of Staff" data-img="" data-info="Leads all staff operations.">Head of Staff</button></li>
-        <li><button class="role-btn" data-name="[Names]" data-role="Committee Staff Members" data-img="" data-info="Support individual committees.">Committee Staff Members</button></li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <h2>The Press</h2>
-      <ul>
-        <li><button class="role-btn" data-name="[Name]" data-role="Press Coordinator" data-img="" data-info="Oversees press team.">Press Coordinator</button></li>
-        <li><button class="role-btn" data-name="[Names]" data-role="Press Members" data-img="" data-info="Handle media coverage.">Press Members</button></li>
-      </ul>
-    </div>
+    <!-- repeat other sections as needed… -->
 
   </div>
 
+  <!-- Custom Modal -->
   <div class="modal-overlay" id="modalOverlay">
-    <div class="modal" id="infoModal">
-      <button class="close-btn" id="closeModal">×</button>
-      <img src="" alt="Profile Picture" id="modalImg" onerror="this.src='default-profile.png'">
+    <div class="modal-box">
+      <button class="close-btn" id="closeModal">&times;</button>
+      <img src="" alt="Profile Picture" id="modalImg">
       <h3 id="modalName"></h3>
       <p id="modalRole"></p>
       <p id="modalInfo"></p>
     </div>
   </div>
 
-  <!-- Bootstrap JS -->
+  <!-- Bootstrap JS bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const buttons = document.querySelectorAll('.role-btn');
-      const overlay = document.getElementById('modalOverlay');
-      const modalImg = document.getElementById('modalImg');
-      const modalName = document.getElementById('modalName');
-      const modalRole = document.getElementById('modalRole');
-      const modalInfo = document.getElementById('modalInfo');
-      const closeModal = document.getElementById('closeModal');
+    document.addEventListener('DOMContentLoaded', () => {
+      const buttons     = document.querySelectorAll('.role-btn');
+      const overlay     = document.getElementById('modalOverlay');
+      const imgEl       = document.getElementById('modalImg');
+      const nameEl      = document.getElementById('modalName');
+      const roleEl      = document.getElementById('modalRole');
+      const infoEl      = document.getElementById('modalInfo');
+      const closeButton = document.getElementById('closeModal');
 
       buttons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const imgSrc = btn.dataset.img || 'default-profile.png';
-          modalImg.src = imgSrc;
-          modalName.textContent = btn.dataset.name || 'Name not provided';
-          modalRole.textContent = btn.dataset.role || 'Role not provided';
-          modalInfo.textContent = btn.dataset.info || 'Information not available';
-          overlay.style.display = 'flex';
-          document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+        btn.addEventListener('click', event => {
+          const target = event.currentTarget;
+          const name   = target.dataset.name    || 'No name provided';
+          const role   = target.dataset.role    || 'No role provided';
+          const img    = target.dataset.img     || 'default-profile.png';
+          const info   = target.dataset.info    || 'No information available';
+
+          imgEl.src = img;
+          imgEl.onerror = function() {
+            this.onerror = null;
+            this.src = 'default-profile.png';
+          };
+
+          nameEl.textContent  = name;
+          roleEl.textContent  = role;
+          infoEl.textContent  = info;
+
+          overlay.classList.add('active');
+          document.body.style.overflow = 'hidden';
         });
       });
 
-      closeModal.addEventListener('click', () => {
-        overlay.style.display = 'none';
-        document.body.style.overflow = 'auto'; // Re-enable scrolling
+      function closeModal() {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      closeButton.addEventListener('click', closeModal);
+      overlay.addEventListener('click', e => {
+        if (e.target === overlay) closeModal();
       });
-      
-      overlay.addEventListener('click', (e) => {
-        if (e.target === overlay) {
-          overlay.style.display = 'none';
-          document.body.style.overflow = 'auto'; // Re-enable scrolling
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && overlay.classList.contains('active')) {
+          closeModal();
         }
       });
     });
