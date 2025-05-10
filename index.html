@@ -27,6 +27,7 @@
     .navbar-custom { 
       background-color: #f8f8f0; 
       font-family: 'Roboto', sans-serif;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
     .container {
       max-width: 800px;
@@ -35,8 +36,8 @@
     }
     header {
       text-align: center;
-      padding-top: 2rem; /* Added padding to push content down */
-      margin-top: 1rem; /* Additional spacing */
+      padding-top: 4rem; /* Increased padding to push content down further */
+      margin-top: 2rem; /* Additional spacing */
     }
     header img {
       max-width: 200px;
@@ -76,7 +77,9 @@
       font-family: 'Lato', sans-serif;
       font-weight: 700;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: all 0.3s;
+      text-align: left;
+      width: 100%;
     }
     .role-btn:hover {
       background: var(--teal);
@@ -100,7 +103,7 @@
       border-radius: 8px;
       max-width: 500px;
       width: 90%;
-      padding: 1.5rem;
+      padding: 2rem;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
       text-align: center;
       position: relative;
@@ -109,6 +112,7 @@
       max-width: 120px;
       border-radius: 50%;
       margin-bottom: 1rem;
+      border: 3px solid var(--gold);
     }
     .modal .close-btn {
       position: absolute;
@@ -116,8 +120,20 @@
       right: 0.5rem;
       background: none;
       border: none;
-      font-size: 1.2rem;
+      font-size: 1.5rem;
       cursor: pointer;
+      color: var(--teal);
+    }
+    .modal h3 {
+      color: var(--teal);
+      margin-bottom: 0.5rem;
+    }
+    .modal p {
+      margin-bottom: 0.5rem;
+    }
+    #modalRole {
+      font-weight: bold;
+      color: var(--gold);
     }
   </style>
 </head>
@@ -209,7 +225,7 @@
   <div class="modal-overlay" id="modalOverlay">
     <div class="modal" id="infoModal">
       <button class="close-btn" id="closeModal">×</button>
-      <img src="" alt="Profile Picture" id="modalImg">
+      <img src="" alt="Profile Picture" id="modalImg" onerror="this.src='default-profile.png'">
       <h3 id="modalName"></h3>
       <p id="modalRole"></p>
       <p id="modalInfo"></p>
@@ -219,29 +235,38 @@
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    const buttons = document.querySelectorAll('.role-btn');
-    const overlay = document.getElementById('modalOverlay');
-    const modalImg = document.getElementById('modalImg');
-    const modalName = document.getElementById('modalName');
-    const modalRole = document.getElementById('modalRole');
-    const modalInfo = document.getElementById('modalInfo');
-    const closeModal = document.getElementById('closeModal');
+    document.addEventListener('DOMContentLoaded', function() {
+      const buttons = document.querySelectorAll('.role-btn');
+      const overlay = document.getElementById('modalOverlay');
+      const modalImg = document.getElementById('modalImg');
+      const modalName = document.getElementById('modalName');
+      const modalRole = document.getElementById('modalRole');
+      const modalInfo = document.getElementById('modalInfo');
+      const closeModal = document.getElementById('closeModal');
 
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        modalImg.src = btn.dataset.img || 'default-profile.png';
-        modalName.textContent = btn.dataset.name;
-        modalRole.textContent = btn.dataset.role;
-        modalInfo.textContent = btn.dataset.info;
-        overlay.style.display = 'flex';
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const imgSrc = btn.dataset.img || 'default-profile.png';
+          modalImg.src = imgSrc;
+          modalName.textContent = btn.dataset.name || 'Name not provided';
+          modalRole.textContent = btn.dataset.role || 'Role not provided';
+          modalInfo.textContent = btn.dataset.info || 'Information not available';
+          overlay.style.display = 'flex';
+          document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+        });
       });
-    });
 
-    closeModal.addEventListener('click', () => {
-      overlay.style.display = 'none';
-    });
-    overlay.addEventListener('click', (e) => {
-      if (e.target === overlay) overlay.style.display = 'none';
+      closeModal.addEventListener('click', () => {
+        overlay.style.display = 'none';
+        document.body.style.overflow = 'auto'; // Re-enable scrolling
+      });
+      
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+          overlay.style.display = 'none';
+          document.body.style.overflow = 'auto'; // Re-enable scrolling
+        }
+      });
     });
   </script>
 </body>
