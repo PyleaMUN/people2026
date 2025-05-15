@@ -29,6 +29,28 @@
     #modalName{ text-align:center; margin-bottom:.5rem; font-weight:bold; }
     #modalRole{ text-align:center; margin-bottom:.5rem; color:var(--gold); }
     #modalInfo{ text-align:left; }
+ /* MOBILE OPTIMIZATIONS FOR MODALS */
+    @media (max-width: 576px) {
+      .modal-box {
+        max-width: 95%;
+        width: 95%;
+        max-height: 90vh;
+        padding: 1rem;
+        overflow-y: auto;
+      }
+      .modal-gallery img,
+      .modal-single img {
+        width: 80px;
+        height: 80px;
+      }
+      #modalInfo {
+        max-height: 60vh;
+        overflow-y: auto;
+        padding-right: 0.5rem;
+      }
+      #modalName { font-size: 1.2rem; }
+      #modalRole { font-size: 1rem; }
+    }
   </style>
 </head>
 <body>
