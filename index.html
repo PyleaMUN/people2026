@@ -126,7 +126,7 @@
   data-img1="finance_chair.png"
   data-img2="finance_vc1.jpg"
   data-img3="finance_vc2.jpg"
-  data-img4="finance_member.jpg"  <!-- Changed from default-profile.png to specific image -->
+  data-img4="finance_member.jpg"
   data-info="
     <p><strong>Chair:</strong> Ioannis Varvoutas</p>
     <p><strong>Vice Chair:</strong> Anna Giannoudi</p>
@@ -518,8 +518,9 @@
 
         if (btn.dataset.img1) {
           gallery.style.display = 'flex';
-          gallery.style.flexWrap = 'wrap';  // Added to handle multiple images better
           gallery.style.justifyContent = 'center';
+          gallery.style.flexWrap = 'wrap';
+          gallery.style.gap = '0.5rem';
           
           // Create array of available images (1-4)
           const images = [];
@@ -529,23 +530,19 @@
             }
           }
           
-          // Create image elements
+          // Create image elements with original styling
           images.forEach(imgSrc => {
-            const imgContainer = document.createElement('div');
-            imgContainer.style.margin = '0.5rem';
-            imgContainer.style.textAlign = 'center';
-            
             const img = new Image();
             img.src = imgSrc;
             img.onerror = () => img.src = 'default-profile.png';
+            img.style.objectFit = 'cover';
             img.style.width = '120px';
             img.style.height = '120px';
             img.style.borderRadius = '50%';
             img.style.border = '3px solid var(--gold)';
-            img.style.objectFit = 'cover';
+            img.style.margin = '0 0.5rem';
             
-            imgContainer.appendChild(img);
-            gallery.appendChild(imgContainer);
+            gallery.appendChild(img);
           });
         } else {
           single.style.display = 'flex';
