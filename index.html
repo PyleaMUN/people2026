@@ -126,12 +126,12 @@
   data-img1="finance_chair.png"
   data-img2="finance_vc1.jpg"
   data-img3="finance_vc2.jpg"
-  data-img4="default-profile.png"  <!-- Added fourth image placeholder -->
+  data-img4="finance_member.jpg"  <!-- Changed from default-profile.png to specific image -->
   data-info="
     <p><strong>Chair:</strong> Ioannis Varvoutas</p>
     <p><strong>Vice Chair:</strong> Anna Giannoudi</p>
     <p><strong>Vice Chair:</strong> Stavroula Kappa</p>
-    <p><strong>Member:</strong> Chrysa Paplomata</p>  <!-- Added fourth member -->
+    <p><strong>Member:</strong> Chrysa Paplomata</p>
     <p>The Financial Oversight Team manages budgeting, financial planning, and reporting to ensure fiscal responsibility and transparency.</p>
   ">
   Financial Oversight Team
@@ -493,6 +493,7 @@
       <div id="modalInfo"></div>
     </div>
   </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const btns = document.querySelectorAll('.role-btn');
@@ -517,14 +518,34 @@
 
         if (btn.dataset.img1) {
           gallery.style.display = 'flex';
-          ['1','2','3','4'].forEach(i => {  // Added '4' to handle fourth image
-            if (btn.dataset['img'+i]) {  // Only add image if it exists
-              const img = new Image();
-              img.src = btn.dataset['img'+i];
-              img.onerror = () => img.src = 'default-profile.png';
-              img.className = 'modal-gallery-img';
-              gallery.appendChild(img);
+          gallery.style.flexWrap = 'wrap';  // Added to handle multiple images better
+          gallery.style.justifyContent = 'center';
+          
+          // Create array of available images (1-4)
+          const images = [];
+          for (let i = 1; i <= 4; i++) {
+            if (btn.dataset[`img${i}`]) {
+              images.push(btn.dataset[`img${i}`]);
             }
+          }
+          
+          // Create image elements
+          images.forEach(imgSrc => {
+            const imgContainer = document.createElement('div');
+            imgContainer.style.margin = '0.5rem';
+            imgContainer.style.textAlign = 'center';
+            
+            const img = new Image();
+            img.src = imgSrc;
+            img.onerror = () => img.src = 'default-profile.png';
+            img.style.width = '120px';
+            img.style.height = '120px';
+            img.style.borderRadius = '50%';
+            img.style.border = '3px solid var(--gold)';
+            img.style.objectFit = 'cover';
+            
+            imgContainer.appendChild(img);
+            gallery.appendChild(imgContainer);
           });
         } else {
           single.style.display = 'flex';
