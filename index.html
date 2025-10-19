@@ -9,6 +9,14 @@
   <style>
     :root { --nav-bg:#f8f8f0; --teal:#006d7a; --gold:#c59d12; --cream:#f8f5ec; --text-dark:#333; }
     body { margin:0; padding-top:56px; font-family:'Lato',sans-serif; background:var(--cream); color:var(--text-dark); }
+    /* FIX: Ensure the background page cannot scroll when the modal is open */
+    body.modal-open { 
+        overflow: hidden !important; 
+        position: fixed; 
+        width: 100%;
+        height: 100%;
+    } 
+
     .navbar-custom{ background:var(--nav-bg); box-shadow:0 2px 4px rgba(0,0,0,.1); }
     header{text-align:center; margin:2rem 0;} header img{max-width:200px; margin-bottom:1rem;}
     h1{ font-family:'Playfair Display',serif; color:var(--teal); font-size:2.5rem; margin-bottom:2rem; }
@@ -18,7 +26,18 @@
     .role-btn:hover{ background:var(--teal); color:#fff; }
     .modal-overlay{ position:fixed; inset:0; background:rgba(0,0,0,.6); display:flex; align-items:center; justify-content:center; opacity:0; visibility:hidden; transition:.3s; z-index:1050; }
     .modal-overlay.active{ opacity:1; visibility:visible; }
-    .modal-box{ background:#fff; border-radius:8px; max-width:500px; width:90%; padding:2rem; position:relative; transform:translateY(-20px); transition:.3s; }
+    .modal-box{ 
+        background:#fff; 
+        border-radius:8px; 
+        max-width:500px; 
+        width:90%; 
+        padding:2rem; 
+        position:relative; 
+        transform:translateY(-20px); 
+        transition:.3s; 
+        max-height: 95vh; 
+        overflow-y: auto; 
+    }
     .modal-overlay.active .modal-box{ transform:translateY(0); }
     .modal-gallery img, .modal-single img{ object-fit:cover; width:120px; height:120px; border-radius:50%; border:3px solid var(--gold); margin:0 .5rem; }
     .modal-gallery{ display:flex; justify-content:center; margin-bottom:1rem; }
@@ -27,24 +46,28 @@
     #modalName{ text-align:center; margin-bottom:.5rem; font-weight:bold; }
     #modalRole{ text-align:center; margin-bottom:.5rem; color:var(--gold); }
     #modalInfo{ text-align:left; }
+    .collapse-toggle { color: var(--teal); cursor: pointer; text-decoration: underline; background: none; border: none; padding: 0; font-weight: bold; }
+    .collapse-toggle:hover { color: var(--gold); }
+    /* NEW: Reduced font size for names inside the modal */
+    .modal-box h4 {
+        font-size: 1.1rem; 
+        font-weight: 700;
+    }
+
  /* MOBILE OPTIMIZATIONS FOR MODALS */
     @media (max-width: 576px) {
       .modal-box {
         max-width: 95%;
         width: 95%;
-        max-height: 90vh;
         padding: 1rem;
-        overflow-y: auto;
       }
       .modal-gallery img,
       .modal-single img {
         width: 80px;
         height: 80px;
       }
-      #modalInfo {
-        max-height: 60vh;
-        overflow-y: auto;
-        padding-right: 0.5rem;
+      .modal-box h4 {
+        font-size: 1rem; /* Further reduction on mobile */
       }
       #modalName { font-size: 1.2rem; }
       #modalRole { font-size: 1rem; }
@@ -118,57 +141,57 @@
       <button class="role-btn"
               data-name="Advisor 1 Name"
               data-role="Senior Student Advisor"
-              data-img="default-advisor1.png"
-              data-info="<p>Information about Senior Student Advisor 1.</p>">
+              data-img="images/advisor-placeholder.png"
+              data-info="<p><strong>Name:</strong> (to be announced)</p><p><strong>Role Summary:</strong> Senior Student Advisors provide high-level youth perspective and mentorship to the core team.</p>">
         Senior Student Advisor 1 (to be announced)
       </button>
       <button class="role-btn"
               data-name="Advisor 2 Name"
               data-role="Senior Student Advisor"
-              data-img="default-advisor2.png"
-              data-info="<p>Information about Senior Student Advisor 2.</p>">
+              data-img="images/advisor-placeholder.png"
+              data-info="<p><strong>Name:</strong> (to be announced)</p><p><strong>Role Summary:</strong> Senior Student Advisors provide high-level youth perspective and mentorship to the core team.</p>">
         Senior Student Advisor 2 (to be announced)
       </button>
       <button class="role-btn"
               data-name="Advisor 3 Name"
               data-role="Advisory Board Member"
-              data-img="default-advisor3.png"
-              data-info="<p>Information about Advisory Board Member 3.</p>">
+              data-img="images/advisor-placeholder.png"
+              data-info="<p><strong>Name:</strong> (to be announced)</p><p><strong>Role Summary:</strong> Advisory Board Members offer expert guidance on academic standards and operational strategy.</p>">
         Advisory Board Member 3 (to be announced)
       </button>
       <button class="role-btn"
               data-name="Advisor 4 Name"
               data-role="Advisory Board Member"
-              data-img="default-advisor4.png"
-              data-info="<p>Information about Advisory Board Member 4.</p>">
+              data-img="images/advisor-placeholder.png"
+              data-info="<p><strong>Name:</strong> (to be announced)</p><p><strong>Role Summary:</strong> Advisory Board Members offer expert guidance on academic standards and operational strategy.</p>">
         Advisory Board Member 4 (to be announced)
       </button>
       <button class="role-btn"
               data-name="Advisor 5 Name"
               data-role="Senior Student Advisor"
-              data-img="default-advisor5.png"
-              data-info="<p>Information about Senior Student Advisor 5.</p>">
+              data-img="images/advisor-placeholder.png"
+              data-info="<p><strong>Name:</strong> (to be announced)</p><p><strong>Role Summary:</strong> Senior Student Advisors provide high-level youth perspective and mentorship to the core team.</p>">
         Senior Student Advisor 5 (to be announced)
       </button>
       <button class="role-btn"
               data-name="Advisor 6 Name"
               data-role="Senior Student Advisor"
-              data-img="default-advisor6.png"
-              data-info="<p>Information about Senior Student Advisor 6.</p>">
+              data-img="images/advisor-placeholder.png"
+              data-info="<p><strong>Name:</strong> (to be announced)</p><p><strong>Role Summary:</strong> Senior Student Advisors provide high-level youth perspective and mentorship to the core team.</p>">
         Senior Student Advisor 6 (to be announced)
       </button>
       <button class="role-btn"
               data-name="Advisor 7 Name"
               data-role="Advisory Board Member"
-              data-img="default-advisor7.png"
-              data-info="<p>Information about Advisory Board Member 7.</p>">
+              data-img="images/advisor-placeholder.png"
+              data-info="<p><strong>Name:</strong> (to be announced)</p><p><strong>Role Summary:</strong> Advisory Board Members offer expert guidance on academic standards and operational strategy.</p>">
         Advisory Board Member 7 (to be announced)
       </button>
       <button class="role-btn"
               data-name="Advisor 8 Name"
               data-role="Advisory Board Member"
-              data-img="default-advisor8.png"
-              data-info="<p>Information about Advisory Board Member 8.</p>">
+              data-img="images/advisor-placeholder.png"
+              data-info="<p><strong>Name:</strong> (to be announced)</p><p><strong>Role Summary:</strong> Advisory Board Members offer expert guidance on academic standards and operational strategy.</p>">
         Advisory Board Member 8 (to be announced)
       </button>
     </div>
@@ -187,7 +210,12 @@
     <p><strong>Vice Chair:</strong> Anna Giannoudi</p>
     <p><strong>Vice Chair:</strong> Stavroula Kappa</p>
     <p><strong>Member:</strong> Chrysa Paplomata</p>
-    <p>The Financial Oversight Team manages budgeting, financial planning, and reporting to ensure fiscal responsibility and transparency.</p>
+    <div id='collapseFinance' class='collapse'>
+        <p>The Financial Oversight Team manages budgeting, financial planning, and reporting to ensure fiscal responsibility and transparency. They oversee all monetary transactions and budget adherence for the entire conference.</p>
+    </div>
+    <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseFinance' aria-expanded='false' aria-controls='collapseFinance'>
+        [Show Bio]
+    </button>
   ">
   Financial Oversight Team
 </button>
@@ -202,7 +230,12 @@
       <p><strong>Press & Social Media Executive:</strong> Panagiotis Domvros</p>
       <p><strong>Press & Social Media Executive:</strong> Vasiliki Yfouli</p>
       <p><strong>Press & Social Media Executive:</strong> [(to be announced)]</p>
-      <p>This team handles all press relations, social media strategy, and public communications for the organization.</p>
+      <div id='collapsePress' class='collapse'>
+          <p>This team handles all press relations, social media strategy, public communications, and documentation for the organization, ensuring wide and engaging coverage of the conference events.</p>
+      </div>
+      <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapsePress' aria-expanded='false' aria-controls='collapsePress'>
+          [Show Bio]
+      </button>
     ">
     Press & Social Media Executives
   </button>
@@ -213,7 +246,15 @@
   data-name="Iosif Gidiotis" 
   data-role="Technical Executive Advisor" 
   data-img="tech.png" 
-  data-info='<p><strong>Iosif Gidiotis</strong> (BA English Language and Literature, AUTh Greece; MPhil Applied Linguistics, TCD Ireland) is currently a doctoral researcher in education futures at the Department of Learning at the ITM School of KTH Royal Institute of Technology in Sweden. His academic work has been presented at international conferences, with earlier research focusing on the effects of the COVID-19 pandemic on the use of assessment for learning. He has been actively involved in professional networks related to language learning and teaching, as well as the digitalisation of higher education. He is an Associate Fellow of the Higher Education Academy (AFHEA) in the UK and a Member of the Association for Learning Technologies (ALT), in recognition of his contributions to teaching and learning in higher education.</p>'>
+  data-info="
+    <h4 style='color: var(--teal);'>Iosif Gidiotis</h4>
+    <div id='collapseIosif' class='collapse'>
+      <p>(BA English Language and Literature, AUTh Greece; MPhil Applied Linguistics, TCD Ireland) is currently a doctoral researcher in education futures at the Department of Learning at the ITM School of KTH Royal Institute of Technology in Sweden. His academic work has been presented at international conferences, with earlier research focusing on the effects of the COVID-19 pandemic on the use of assessment for learning. He has been actively involved in professional networks related to language learning and teaching, as well as the digitalisation of higher education. He is an Associate Fellow of the Higher Education Academy (AFHEA) in the UK and a Member of the Association for Learning Technologies (ALT), in recognition of his contributions to teaching and learning in higher education.</p>
+    </div>
+    <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseIosif' aria-expanded='false' aria-controls='collapseIosif'>
+        [Show Bio]
+    </button>
+  ">
   Technical Executive Advisor
 </button>
       <button class="role-btn" data-name="Stavros Tambouratzis" data-role="Staff Executive Supervisor" data-img="tambouratzis.png" data-info="<p>Stavros Tambouratzis oversees and coordinates the staff executives, ensuring alignment between executive decisions and staff execution.</p>">Staff Executive Supervisor</button>
@@ -227,27 +268,41 @@
           data-role="President of the GA"
           data-img="ga_president.png"
           data-info="
+            <h4 style='color: var(--teal);'>Eleftheria Paidaraki</h4>
             <p><strong>Contact:</strong>pedarakieleftheria@gmail.com</p>
-            <p>My name is <strong>Eleftheria Paidaraki</strong>, I’m 17, and honored to serve as President of the GA for PyleaMUN. I’ll work closely with chairs, the academic team, and the Secretariat to ensure high academic standards and smooth committee operation. Having chaired and debated in several MUNs, I believe in teamwork, respect, and continuous growth. I’m committed to making this conference both professional and unforgettable for everyone</p>
+            <div id='collapseEleftheria' class='collapse'>
+                <p>My name is <strong>Eleftheria Paidaraki</strong>, I’m 17, and honored to serve as President of the GA for PyleaMUN. I’ll work closely with chairs, the academic team, and the Secretariat to ensure high academic standards and smooth committee operation. Having chaired and debated in several MUNs, I believe in teamwork, respect, and continuous growth. I’m committed to making this conference both professional and unforgettable for everyone</p>
+            </div>
+            <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseEleftheria' aria-expanded='false' aria-controls='collapseEleftheria'>
+                [Show Bio]
+            </button>
           ">
     President of the GA
- <button class="role-btn"
+  </button>
+  
+  <button class="role-btn"
         data-name="Konstantinos Eskitzis"
         data-role="Secretary General"
         data-img="sec_gen.png"
         data-info="
+          <h4 style='color: var(--teal);'>Konstantinos Eskitzis</h4>
           <p><strong>Contact:</strong> <a href='mailto:eskikostas@gmail.com'>eskikostas@gmail.com</a></p>
-          <p>I am <strong>Konstantinos Eskitzis</strong>, a 17-year-old student at the 1st Senior High School of Pylea, serving as Secretary General for the 1st PyleaMUN. With a passion for diplomacy and entrepreneurship and extensive experience as both delegate and chair, I’m committed to delivering a well-structured, intellectually stimulating experience. I look forward to working with you all to create productive debates and lifelong memories!</p>
-          
-          <p style='margin-top: 1rem;'><strong>Key Achievements:</strong></p>
-          <ul style='padding-left: 20px; margin-top: 0.5rem; list-style-type: &quot;🏆&quot;; padding-left: 1.5rem;'>
-              <li style='padding-left: 0.5rem;'>Best Delegate of the UNEP Committee at the CWMUN Abu Dhabi Conference</li>
-              <li style='margin-top: 0.5rem; padding-left: 0.5rem; list-style-type: &quot;🏅&quot;;'>Ranked 21st nationwide in the Economics Olympiad (Greece)</li>
-          </ul>
+          <div id='collapseKonstantinos' class='collapse'>
+              <p>I am <strong>Konstantinos Eskitzis</strong>, a 17-year-old student at the 1st Senior High School of Pylea, serving as Secretary General for the 1st PyleaMUN. With a passion for diplomacy and entrepreneurship and extensive experience as both delegate and chair, I’m committed to delivering a well-structured, intellectually stimulating experience. I look forward to working with you all to create productive debates and lifelong memories!</p>
+              
+              <p style='margin-top: 1rem;'><strong>Key Achievements:</strong></p>
+              <ul style='padding-left: 20px; margin-top: 0.5rem; list-style-type: &quot;🏆&quot;; padding-left: 1.5rem;'>
+                  <li style='padding-left: 0.5rem;'>Best Delegate of the UNEP Committee at the CWMUN Abu Dhabi Conference</li>
+                  <li style='margin-top: 0.5rem; padding-left: 0.5rem; list-style-type: &quot;🏅&quot;;'>Ranked 21st nationwide in the Economics Olympiad (Greece)</li>
+              </ul>
 
-          <p style='margin-top: 1rem;'>
-              🔗 <strong>LinkedIn:</strong> <a href='https://www.linkedin.com/in/eskitzis-konstantinos' target='_blank' rel='noopener noreferrer'>/in/eskitzis-konstantinos</a>
-          </p>
+              <p style='margin-top: 1rem;'>
+                  🔗 <strong>LinkedIn:</strong> <a href='https://www.linkedin.com/in/eskitzis-konstantinos' target='_blank' rel='noopener noreferrer'>/in/eskitzis-konstantinos</a>
+              </p>
+          </div>
+          <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseKonstantinos' aria-expanded='false' aria-controls='collapseKonstantinos'>
+              [Show Bio]
+          </button>
         ">
   Secretary General
 </button>
@@ -257,8 +312,14 @@
           data-role="Deputy President of the GA"
           data-img="dep_ga.jpg"
           data-info="
+            <h4 style='color: var(--teal);'>Sofia Sougari</h4>
             <p><strong>Contact:</strong>sougarisofia@gmail.com</p>
-            <p>My name is <strong>Sofia Sougari</strong>, I am 16 years old and I am honoured to serve as Deputy President of the GA for PyleaMUN. Driven by my passion for diplomacy I have debated and chaired  in multiple MUNs. As a major advocate of teamwork I look forward to working closely with chairs and delegates to ensure a successful, fun, and unforgettable conference for all. </p>
+            <div id='collapseSofiaGA' class='collapse'>
+                <p>My name is <strong>Sofia Sougari</strong>, I am 16 years old and I am honoured to serve as Deputy President of the GA for PyleaMUN. Driven by my passion for diplomacy I have debated and chaired  in multiple MUNs. As a major advocate of teamwork I look forward to working closely with chairs and delegates to ensure a successful, fun, and unforgettable conference for all. </p>
+            </div>
+            <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseSofiaGA' aria-expanded='false' aria-controls='collapseSofiaGA'>
+                [Show Bio]
+            </button>
           ">
     Deputy President of the GA
   </button>
@@ -268,8 +329,14 @@
           data-role="Deputy Secretary General"
           data-img="dep_sec.png"
           data-info="
+            <h4 style='color: var(--teal);'>Nikolaos Pavlidis Charalampidis</h4>
             <p><strong>Contact:</strong> nkspvlds2009@gmail.com</p>
-            <p>I am <strong>Nikolaos Pavlidis Charalampidis</strong>, a 17-year-old student at the 1st Senior High School of Pylea. It is my utmost honour to serve as Deputy Secretary General for the 1st PyleaMUN. I have been participating in various MUN conferences for three years as both delegate and chair. As a young advocate, I am passionate about engaging and empowering my generation; I believe MUN conferences are vital for exploring and forging sustainable solutions. I look forward to collaborating with all participants to make this MUN a successful and unforgettable experience.</p>
+            <div id='collapseNikolaosGA' class='collapse'>
+                <p>I am <strong>Nikolaos Pavlidis Charalampidis</strong>, a 17-year-old student at the 1st Senior High School of Pylea. It is my utmost honour to serve as Deputy Secretary General for the 1st PyleaMUN. I have been participating in various MUN conferences for three years as both delegate and chair. As a young advocate, I am passionate about engaging and empowering my generation; I believe MUN conferences are vital for exploring and forging sustainable solutions. I look forward to collaborating with all participants to make this MUN a successful and unforgettable experience.</p>
+            </div>
+            <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseNikolaosGA' aria-expanded='false' aria-controls='collapseNikolaosGA'>
+                [Show Bio]
+            </button>
           ">
     Deputy Secretary General
   </button>
@@ -283,7 +350,16 @@
         data-name="Evangelos Papadopoulos"
         data-role="Head of Executives"
         data-img="head_exec.png"
-        data-info="<p><strong>Contact:</strong> vnglspapadopoulos@gmail.com</p><p>I am <strong>Evangelos Papadopoulos</strong>, a 15-year-old student at the 1st Middle School of Pylea, serving as President of the Executive Board for the Pylaia Model United Nations session. Having participated in numerous MUN conferences both in Greece and internationally—as delegate and chair—I bring a deep understanding of diplomacy, international relations, and public speaking. I’m committed to making PyleaMUN an engaging, high-quality experience and look forward to fostering meaningful dialogue and future leaders!</p>">
+        data-info="
+            <h4 style='color: var(--teal);'>Evangelos Papadopoulos</h4>
+            <p><strong>Contact:</strong> vnglspapadopoulos@gmail.com</p>
+            <div id='collapseEvangelos' class='collapse'>
+                <p>I am <strong>Evangelos Papadopoulos</strong>, a 15-year-old student at the 1st Middle School of Pylea, serving as President of the Executive Board for the Pylaia Model United Nations session. Having participated in numerous MUN conferences both in Greece and internationally—as delegate and chair—I bring a deep understanding of diplomacy, international relations, and public speaking. I’m committed to making PyleaMUN an engaging, high-quality experience and look forward to fostering meaningful dialogue and future leaders!</p>
+            </div>
+            <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseEvangelos' aria-expanded='false' aria-controls='collapseEvangelos'>
+                [Show Bio]
+            </button>
+        ">
   Head of Executives
 </button>
 
@@ -322,33 +398,38 @@
                 <p><strong>Supervisor 1:</strong> Fani Vasilikou</p>
                 <p><strong>Supervisor 2:</strong> Emily Johnson</p>
                 <p><strong>Supervisor 3:</strong> Michael Williams</p>
-                <p>The Committee Chairs Supervisors oversee and guide all committee chairs, ensuring smooth operation and adherence to MUN procedures.</p>
+                <div id='collapseSupervisors' class='collapse'>
+                    <p>The Committee Chairs Supervisors oversee and guide all committee chairs, ensuring smooth operation and adherence to MUN procedures, maintaining the highest academic standards.</p>
+                </div>
+                <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseSupervisors' aria-expanded='false' aria-controls='collapseSupervisors'>
+                    [Show Bio]
+                </button>
               ">
         Committee Chairs Supervisors
       </button>
 
       <button class="role-btn"
               data-committee="UN Environment Programme"
-              data-img1="chair1.png"
-              data-img2="vice1.png"
-              data-img3="vice2.png"
+              data-img1="images/chair-placeholder.png"
+              data-img2="images/vice1-placeholder.png"
+              data-img3="images/vice2-placeholder.png"
               data-info="
-                <p><strong>Chair:</strong> (to be announced after 30-09-2025)</p>
-                <p><strong>Vice Chair:</strong>(to be announced after 30-09-2025)</p>
-                <p><strong>Vice Chair:</strong> (to be announced after 30-09-2025)</p>
+                <p><strong>Chair:</strong> (to be announced after 26-10-2025)</p>
+                <p><strong>Vice Chair 1:</strong> (to be announced after 26-10-2025)</p>
+                <p><strong>Vice Chair 2:</strong> (to be announced after 26-10-2025)</p>
               ">
         UN Environment Programme
       </button>
 
       <button class="role-btn"
               data-committee="Security Council"
-              data-img1="chair2.png"
-              data-img2="vice1_sc.png"
-              data-img3="vice2_sc.png"
+              data-img1="images/chair-placeholder.png"
+              data-img2="images/vice1-placeholder.png"
+              data-img3="images/vice2-placeholder.png"
               data-info="
-                <p><strong>Chair:</strong> (to be announced after 30-09-2025)</p>
-                <p><strong>Vice Chair:</strong> (to be announced after 30-09-2025)</p>
-                <p><strong>Vice Chair:</strong> (to be announced after 30-09-2025)</p>
+                <p><strong>Chair:</strong> (to be announced after 26-10-2025)</p>
+                <p><strong>Vice Chair 1:</strong> (to be announced after 26-10-2025)</p>
+                <p><strong>Vice Chair 2:</strong> (to be announced after 26-10-2025)</p>
               ">
         Security Council
       </button>
@@ -359,74 +440,98 @@
               data-img2="vice1_esc.png"
               data-img3="vice2_esc.png"
               data-info="
-                <p><strong>Chair:</strong> Grace Lee</p>
-                <p><strong>Vice Chair:</strong> Henry Kim</p>
-                <p><strong>Vice Chair:</strong> Irene Chen</p>
+                <h4 style='color: var(--teal);'>Chair: Grace Lee</h4>
+                <p><strong>Vice Chair 1:</strong> Henry Kim</p>
+                <p><strong>Vice Chair 2:</strong> Irene Chen</p>
+                <div id='collapseEcosoc' class='collapse'>
+                    <p>Grace, Henry, and Irene are dedicated to fostering constructive debate on global economic and social issues within the ECOSOC committee. They bring extensive experience in chairing and diplomacy.</p>
+                </div>
+                <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseEcosoc' aria-expanded='false' aria-controls='collapseEcosoc'>
+                    [Show Bio]
+                </button>
               ">
         Economic and Social Council
       </button>
 
       <button class="role-btn"
               data-committee="NATO"
-              data-img1="chair4.png"
-              data-img2="vice1_nato.png"
-              data-img3="vice2_nato.png"
+              data-img1="images/chair-placeholder.png"
+              data-img2="images/vice1-placeholder.png"
+              data-img3="images/vice2-placeholder.png"
               data-info="
-                <p><strong>Chair:</strong> (to be announced after 30-09-2025)</p>
-                <p><strong>Vice Chair:</strong> (to be announced after 30-09-2025)</p>
-                <p><strong>Vice Chair:</strong> (to be announced after 30-09-2025)</p>
+                <p><strong>Chair:</strong> (to be announced after 26-10-2025)</p>
+                <p><strong>Vice Chair 1:</strong> (to be announced after 26-10-2025)</p>
+                <p><strong>Vice Chair 2:</strong> (to be announced after 26-10-2025)</p>
               ">
         NATO
       </button>
 
       <button class="role-btn"
               data-committee="World Health Organisation"
-              data-img1="chair5.png"
-              data-img2="vice1_who.png"
-              data-img3="vice2_who.png"
+              data-img1="images/chair-placeholder.png"
+              data-img2="images/vice1-placeholder.png"
+              data-img3="images/vice2-placeholder.png"
               data-info="
-                <p><strong>Chair:</strong> (to be announced after 30-09-2025)</p>
-                <p><strong>Vice Chair:</strong> (to be announced after 30-09-2025)</p>
-                <p><strong>Vice Chair:</strong> (to be announced after 30-09-2025)</p>
+                <p><strong>Chair:</strong> (to be announced after 26-10-2025)</p>
+                <p><strong>Vice Chair 1:</strong> (to be announced after 26-10-2025)</p>
+                <p><strong>Vice Chair 2:</strong> (to be announced after 26-10-2025)</p>
               ">
         World Health Organisation
       </button>
 
       <button class="role-btn"
               data-committee="Human Rights Council"
-              data-img1="chair6.png"
-              data-img2="vice1_hrc.png"
-              data-img3="vice2_hrc.png"
+              data-img1="images/chair-placeholder.png"
+              data-img2="images/vice1-placeholder.png"
+              data-img3="images/vice2-placeholder.png"
               data-info="
-                <p><strong>Chair:</strong> (to be announced after 30-09-2025)</p>
-                <p><strong>Vice Chair:</strong> (to be announced after 30-09-2025)</p>
-                <p><strong>Vice Chair:</strong> (to be announced after 30-09-2025)</p>
+                <p><strong>Chair:</strong> (to be announced after 26-10-2025)</p>
+                <p><strong>Vice Chair 1:</strong> (to be announced after 26-10-2025)</p>
+                <p><strong>Vice Chair 2:</strong> (to be announced after 26-10-2025)</p>
               ">
         Human Rights Council
       </button>
 
       <button class="role-btn"
               data-committee="UN Women"
-              data-img1="chair7.png"
-              data-img2="vice1_unw.png"
-              data-img3="vice2_unw.png"
+              data-img1="images/chair-placeholder.png"
+              data-img2="images/vice1-placeholder.png"
+              data-img3="images/vice2-placeholder.png"
               data-info="
-                <p><strong>Chair:</strong> (to be announced after 30-09-2025)</p>
-                <p><strong>Vice Chair:</strong> (to be announced after 30-09-2025)</p>
-                <p><strong>Vice Chair:</strong> (to be announced after 30-09-2025)</p>
+                <p><strong>Chair:</strong> (to be announced after 26-10-2025)</p>
+                <p><strong>Vice Chair 1:</strong> (to be announced after 26-10-2025)</p>
+                <p><strong>Vice Chair 2:</strong> (to be announced after 26-10-2025)</p>
               ">
         UN Women
       </button>
 
       <button class="role-btn"
               data-committee="Historical Crisis Committee"
-              data-img1="default-crisis-chair.png"
+              data-img1="images/chair-placeholder.png"
               data-img2="dep_sec.png"
               data-img3="dep_ga.jpg"
               data-info="
                 <p><strong>Chair:</strong> (to be announced)</p>
-                <p><strong>Vice Chair 1:</strong> Nikolaos Pavlidis Charalampidis</p>
-                <p><strong>Vice Chair 2:</strong> Sofia Sougari</p>
+                
+                <h4 style='color: var(--teal); margin-top: 1rem;'>Vice Chair 1: Nikolaos Pavlidis Charalampidis</h4>
+                <div id='collapseNikolaosCrisis' class='collapse'>
+                    <p><strong>Contact:</strong> nkspvlds2009@gmail.com</p>
+                    <p>I am <strong>Nikolaos Pavlidis Charalampidis</strong>, a 17-year-old student at the 1st Senior High School of Pylea. It is my utmost honour to serve as Deputy Secretary General for the 1st PyleaMUN. I have been participating in various MUN conferences for three years as both delegate and chair. As a young advocate, I am passionate about engaging and empowering my generation; I believe MUN conferences are vital for exploring and forging sustainable solutions. I look forward to collaborating with all participants to make this MUN a successful and unforgettable experience.</p>
+                </div>
+                <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseNikolaosCrisis' aria-expanded='false' aria-controls='collapseNikolaosCrisis'>
+                    [Show Bio]
+                </button>
+                
+                <hr style='border-top: 1px dashed var(--gold); margin: 1rem 0;'>
+                
+                <h4 style='color: var(--teal);'>Vice Chair 2: Sofia Sougari</h4>
+                <div id='collapseSofiaCrisis' class='collapse'>
+                    <p><strong>Contact:</strong>sougarisofia@gmail.com</p>
+                    <p>My name is <strong>Sofia Sougari</strong>, I am 16 years old and I am honoured to serve as Deputy President of the GA for PyleaMUN. Driven by my passion for diplomacy I have debated and chaired  in multiple MUNs. As a major advocate of teamwork I look forward to working closely with chairs and delegates to ensure a successful, fun, and unforgettable conference for all. </p>
+                </div>
+                <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseSofiaCrisis' aria-expanded='false' aria-controls='collapseSofiaCrisis'>
+                    [Show Bio]
+                </button>
               ">
         Historical Crisis Committee
       </button>
@@ -567,9 +672,52 @@
     const roleEl = document.getElementById('modalRole');
     const infoEl = document.getElementById('modalInfo');
     const closeBtn = document.getElementById('closeModal');
+    const body = document.body; 
+
+    // Function to update the text of the collapse toggle button
+    function updateToggleText(toggle) {
+        const targetId = toggle.getAttribute('data-bs-target').substring(1);
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+            const isExpanded = targetElement.classList.contains('show');
+            toggle.textContent = isExpanded ? '[Hide Bio]' : '[Show Bio]';
+        }
+    }
+
+    // Observer to handle toggles being inserted into the modal
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            // Check if content was added to modalInfo and the modal is active
+            if (mutation.target.id === 'modalInfo' && overlay.classList.contains('active')) {
+                const toggles = infoEl.querySelectorAll('.collapse-toggle');
+                toggles.forEach(toggle => {
+                    const targetId = toggle.getAttribute('data-bs-target').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        // Initialize text state (collapsibles start closed by default)
+                        targetElement.classList.remove('show');
+                        updateToggleText(toggle);
+
+                        // Add event listeners to update text on toggle
+                        targetElement.addEventListener('shown.bs.collapse', () => {
+                            updateToggleText(toggle);
+                        });
+                        targetElement.addEventListener('hidden.bs.collapse', () => {
+                            updateToggleText(toggle);
+                        });
+                    }
+                });
+            }
+        });
+    });
+
+    observer.observe(infoEl, { childList: true, subtree: true });
+
 
     btns.forEach(btn => {
       btn.addEventListener('click', () => {
+        // Reset modal content
         gallery.innerHTML = '';
         single.innerHTML = '';
         gallery.style.display = 'none';
@@ -579,13 +727,13 @@
         roleEl.textContent = btn.dataset.role || btn.dataset.committee || '';
         infoEl.innerHTML = btn.dataset.info || '';
 
+        // Handle images
         if (btn.dataset.img1) {
           gallery.style.display = 'flex';
           gallery.style.justifyContent = 'center';
           gallery.style.flexWrap = 'wrap';
           gallery.style.gap = '0.5rem';
           
-          // Create array of available images (1-4)
           const images = [];
           for (let i = 1; i <= 4; i++) {
             if (btn.dataset[`img${i}`]) {
@@ -593,11 +741,17 @@
             }
           }
           
-          // Create image elements with original styling
           images.forEach(imgSrc => {
             const img = new Image();
             img.src = imgSrc;
-            img.onerror = () => img.src = 'default-profile.png';
+            img.onerror = () => {
+                if (imgSrc.startsWith('images/')) {
+                    img.src = imgSrc; 
+                } else {
+                    img.src = 'default-profile.png';
+                }
+            };
+            // Inline styling matching the CSS rules
             img.style.objectFit = 'cover';
             img.style.width = '120px';
             img.style.height = '120px';
@@ -616,14 +770,15 @@
           single.appendChild(img);
         }
 
+        // Display modal and lock background scrolling
         overlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
+        body.classList.add('modal-open'); 
       });
     });
 
     function closeModal() {
       overlay.classList.remove('active');
-      document.body.style.overflow = '';
+      body.classList.remove('modal-open'); 
     }
     closeBtn.addEventListener('click', closeModal);
     overlay.addEventListener('click', e => e.target === overlay && closeModal());
