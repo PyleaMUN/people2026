@@ -19,9 +19,12 @@
 
     .navbar-custom{ background:var(--nav-bg); box-shadow:0 2px 4px rgba(0,0,0,.1); }
     header{text-align:center; margin:2rem 0;} header img{max-width:200px; margin-bottom:1rem;}
+    
+    /* ORIGINAL STYLES FOR HEADINGS */
     h1{ font-family:'Playfair Display',serif; color:var(--teal); font-size:2.5rem; margin-bottom:2rem; }
     .section{ margin-bottom:3rem; }
-    .section h2{ font-family:'Playfair Display',serif; color:var(--gold); font-size:1.8rem; border-bottom:2px solid var(--teal); display:inline-block; padding-bottom:.2rem; margin-bottom:1rem; }
+    h2{ font-family:'Playfair Display',serif; color:var(--gold); font-size:1.8rem; border-bottom:2px solid var(--teal); display:inline-block; padding-bottom:.2rem; margin-bottom:1rem; }
+    
     .role-btn{ display:block; width:100%; text-align:left; background:none; border:2px solid var(--teal); padding:.5rem; border-radius:4px; font-weight:bold; color:var(--teal); transition:.3s; margin-bottom:.5rem; }
     .role-btn:hover{ background:var(--teal); color:#fff; }
     .modal-overlay{ position:fixed; inset:0; background:rgba(0,0,0,.6); display:flex; align-items:center; justify-content:center; opacity:0; visibility:hidden; transition:.3s; z-index:1050; }
@@ -48,10 +51,11 @@
     #modalInfo{ text-align:left; }
     .collapse-toggle { color: var(--teal); cursor: pointer; text-decoration: underline; background: none; border: none; padding: 0; font-weight: bold; }
     .collapse-toggle:hover { color: var(--gold); }
-    /* NEW: Reduced font size for names inside the modal */
+    /* This style ensures all person names/titles inside the modal are uniform (as requested for the Chairs section) */
     .modal-box h4 {
         font-size: 1.1rem; 
         font-weight: 700;
+        color: var(--teal);
     }
 
  /* MOBILE OPTIMIZATIONS FOR MODALS */
@@ -176,20 +180,6 @@
                 <p>My name is <strong>Areti Saralekou</strong> and I am a third year student at the Faculty of Law at Aristotle University of Thessaloniki. From a young age, I was captivated by diplomacy, international relations and debate; interests that I had the opportunity to explore more deeply during my studies. I have participated in various MUNs both in Greece and abroad, and I have the honour to serve this year as the **Secretary General of the United Nations Society of the Aristotle University of Thessaloniki**. I have written articles on international relations and speak English, French, German and Spanish.</p>
               ">
         Areti Saralekou
-      </button>
-      <button class="role-btn"
-              data-name="Advisor 3 Name"
-              data-role="Advisory Board Member"
-              data-img="images/advisor-placeholder.png"
-              data-info="<p><strong>Name:</strong> (to be announced)</p><p><strong>Role Summary:</strong> Advisory Board Members offer expert guidance on academic standards and operational strategy.</p>">
-        Advisory Board Member 3 (to be announced)
-      </button>
-      <button class="role-btn"
-              data-name="Advisor 4 Name"
-              data-role="Advisory Board Member"
-              data-img="images/advisor-placeholder.png"
-              data-info="<p><strong>Name:</strong> (to be announced)</p><p><strong>Role Summary:</strong> Advisory Board Members offer expert guidance on academic standards and operational strategy.</p>">
-        Advisory Board Member 4 (to be announced)
       </button>
       <button class="role-btn"
               data-name="Advisor 5 Name"
@@ -397,12 +387,10 @@
               data-name="Supervision Team"
               data-role="Committee Chairs Supervisors"
               data-img1="Vasilikou.jpg"
-              data-img2="supervisor2.png"
-              data-img3="supervisor3.png"
+              data-img2="domvros.png"
               data-info="
-                <p><strong>Supervisor 1:</strong> Fani Vasilikou</p>
-                <p><strong>Supervisor 2:</strong> Emily Johnson</p>
-                <p><strong>Supervisor 3:</strong> Michael Williams</p>
+                <h4 style='color: var(--teal);'>Supervisor 1: Fani Vasilikou</h4>
+                <h4 style='color: var(--teal);'>Supervisor 2: Panagiotis Domvros (President & Director)</h4>
                 <div id='collapseSupervisors' class='collapse'>
                     <p>The Committee Chairs Supervisors oversee and guide all committee chairs, ensuring smooth operation and adherence to MUN procedures, maintaining the highest academic standards.</p>
                 </div>
@@ -416,12 +404,22 @@
       <button class="role-btn"
               data-committee="UN Environment Programme"
               data-img1="images/chair-placeholder.png"
-              data-img2="images/vice1-placeholder.png"
+              data-img2="ramadanis.jpg"
               data-img3="images/vice2-placeholder.png"
               data-info="
-                <p><strong>Chair:</strong> (to be announced after 26-10-2025)</p>
-                <p><strong>Vice Chair 1:</strong> (to be announced after 26-10-2025)</p>
-                <p><strong>Vice Chair 2:</strong> (to be announced after 26-10-2025)</p>
+                <h4 style='color: var(--teal);'>Chair: (to be announced after 26-10-2025)</h4>
+                <h4 style='color: var(--teal);'>Vice Chair 1: Stelios Ramadanis</h4>
+                <h4 style='color: var(--teal);'>Vice Chair 2: (to be announced after 26-10-2025)</h4>
+
+                <hr style='border-top: 1px dashed var(--gold); margin: 1rem 0;'>
+
+                <h4 style='color: var(--teal);'>Vice Chair 1: Stelios Ramadanis</h4>
+                <div id='collapseStelios' class='collapse'>
+                    <p>I'm Stelios Ramadanis, a first-year student at the first High School of Pylea. At the moment, I am a Pylea MUN Student Officer. I've previously served as a delegate at two Model UN conferences and have a keen interest in both history and international issues. I intend to use this experience to hone my abilities, help the conference succeed, and make new friends who are as passionate about global issues as I am. I'm excited to meet everyone and share my thoughts.</p>
+                </div>
+                <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseStelios' aria-expanded='false' aria-controls='collapseStelios'>
+                    [Show Bio]
+                </button>
               ">
         UN Environment Programme
       </button>
@@ -432,9 +430,9 @@
               data-img2="images/vice1-placeholder.png"
               data-img3="images/vice2-placeholder.png"
               data-info="
-                <p><strong>Chair:</strong> (to be announced after 26-10-2025)</p>
-                <p><strong>Vice Chair 1:</strong> (to be announced after 26-10-2025)</p>
-                <p><strong>Vice Chair 2:</strong> (to be announced after 26-10-2025)</p>
+                <h4 style='color: var(--teal);'>Chair: (to be announced after 26-10-2025)</h4>
+                <h4 style='color: var(--teal);'>Vice Chair 1: (to be announced after 26-10-2025)</h4>
+                <h4 style='color: var(--teal);'>Vice Chair 2: (to be announced after 26-10-2025)</h4>
               ">
         Security Council
       </button>
@@ -442,20 +440,50 @@
       <button class="role-btn"
               data-committee="Economic and Social Council"
               data-img1="chair3.png"
-              data-img2="vice1_esc.png"
+              data-img2="triantafyllou.jpeg"
               data-img3="vice2_esc.png"
               data-info="
                 <h4 style='color: var(--teal);'>Chair: Grace Lee</h4>
-                <p><strong>Vice Chair 1:</strong> Henry Kim</p>
-                <p><strong>Vice Chair 2:</strong> Irene Chen</p>
+                <h4 style='color: var(--teal);'>Vice Chair 1: Angelos Triantafyllou</h4>
+                <h4 style='color: var(--teal);'>Vice Chair 2: Irene Chen</h4>
                 <div id='collapseEcosoc' class='collapse'>
-                    <p>Grace, Henry, and Irene are dedicated to fostering constructive debate on global economic and social issues within the ECOSOC committee. They bring extensive experience in chairing and diplomacy.</p>
+                    <p>Grace and Irene are dedicated to fostering constructive debate on global economic and social issues. Angelos brings a focus on business strategy, finance, and innovation.</p>
                 </div>
-                <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseEcosoc' aria-expanded='false' aria-controls='collapseEcosoc'>
+                
+                <hr style='border-top: 1px dashed var(--gold); margin: 1rem 0;'>
+                
+                <h4 style='color: var(--teal);'>Vice Chair 1: Angelos Triantafyllou</h4>
+                <div id='collapseAngelos' class='collapse'>
+                    <p>Angelos Triantafyllou, 17, is a student at the Experimental Senior High School of the University of Macedonia, actively engaged in business strategy, finance, technology, and innovation. He has served as Deputy CEO & Business Navigator at LoopLab, a student-founded startup, as well as a Management Trainee at the Porsche Center Thessaloniki of the Motodynamics Group. He is currently a member of the Greek NewSpace Society and has been part of the National Robotics Team. Angelos has been recognized with the PMIEF Best Application of Project Management Award and other honors for innovation and leadership. He is distinguished by his strategic thinking, organizational skills, and commitment to excellence.</p>
+                </div>
+                <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseAngelos' aria-expanded='false' aria-controls='collapseAngelos'>
                     [Show Bio]
                 </button>
               ">
         Economic and Social Council
+      </button>
+      
+      <button class="role-btn"
+              data-committee="UNESCO"
+              data-img1="angelaki.jpg"
+              data-img2="images/vice1-placeholder.png"
+              data-img3="images/vice2-placeholder.png"
+              data-info="
+                <h4 style='color: var(--teal);'>Co-Chair: Sofia Angelaki-Mertzemeki</h4>
+                <h4 style='color: var(--teal);'>Chair/Co-Chair: (to be announced)</h4>
+                <h4 style='color: var(--teal);'>Vice Chair: (to be announced)</h4>
+                
+                <hr style='border-top: 1px dashed var(--gold); margin: 1rem 0;'>
+
+                <h4 style='color: var(--teal);'>Co-Chair: Sofia Angelaki-Mertzemeki</h4>
+                <div id='collapseSofia' class='collapse'>
+                    <p>My name is Sofia Angelaki-Mertzemeki. I am 17 years old, currently in my senior year and was born and raised in Katerini. During high school, I have participated in both MUN and European Youth Parliament programs, while through the latter, I was selected to be a delegate in the 102nd Turku International Session, held for 10 days in Finland this summer. There, brought together with students from across Europe, I realized how enriching such programs are, fostering an intercultural perspective. I am looking forward to meeting all delegates of UNESCO and confident that the first PyleaMUN conference will be a successful and inspiring event for all.</p>
+                </div>
+                <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseSofia' aria-expanded='false' aria-controls='collapseSofia'>
+                    [Show Bio]
+                </button>
+              ">
+        UNESCO
       </button>
 
       <button class="role-btn"
@@ -464,9 +492,9 @@
               data-img2="images/vice1-placeholder.png"
               data-img3="images/vice2-placeholder.png"
               data-info="
-                <p><strong>Chair:</strong> (to be announced after 26-10-2025)</p>
-                <p><strong>Vice Chair 1:</strong> (to be announced after 26-10-2025)</p>
-                <p><strong>Vice Chair 2:</strong> (to be announced after 26-10-2025)</p>
+                <h4 style='color: var(--teal);'>Chair: (to be announced after 26-10-2025)</h4>
+                <h4 style='color: var(--teal);'>Vice Chair 1: (to be announced after 26-10-2025)</h4>
+                <h4 style='color: var(--teal);'>Vice Chair 2: (to be announced after 26-10-2025)</h4>
               ">
         NATO
       </button>
@@ -477,35 +505,55 @@
               data-img2="images/vice1-placeholder.png"
               data-img3="images/vice2-placeholder.png"
               data-info="
-                <p><strong>Chair:</strong> (to be announced after 26-10-2025)</p>
-                <p><strong>Vice Chair 1:</strong> (to be announced after 26-10-2025)</p>
-                <p><strong>Vice Chair 2:</strong> (to be announced after 26-10-2025)</p>
+                <h4 style='color: var(--teal);'>Chair: (to be announced after 26-10-2025)</h4>
+                <h4 style='color: var(--teal);'>Vice Chair 1: (to be announced after 26-10-2025)</h4>
+                <h4 style='color: var(--teal);'>Vice Chair 2: (to be announced after 26-10-2025)</h4>
               ">
         World Health Organisation
       </button>
 
       <button class="role-btn"
               data-committee="Human Rights Council"
-              data-img1="images/chair-placeholder.png"
+              data-img1="zarogianni.jpg"
               data-img2="images/vice1-placeholder.png"
               data-img3="images/vice2-placeholder.png"
               data-info="
-                <p><strong>Chair:</strong> (to be announced after 26-10-2025)</p>
-                <p><strong>Vice Chair 1:</strong> (to be announced after 26-10-2025)</p>
-                <p><strong>Vice Chair 2:</strong> (to be announced after 26-10-2025)</p>
+                <h4 style='color: var(--teal);'>Chair: Ioanna Zarogianni</h4>
+                <h4 style='color: var(--teal);'>Vice Chair 1: (to be announced after 26-10-2025)</h4>
+                <h4 style='color: var(--teal);'>Vice Chair 2: (to be announced after 26-10-2025)</h4>
+                
+                <hr style='border-top: 1px dashed var(--gold); margin: 1rem 0;'>
+
+                <h4 style='color: var(--teal);'>Chair: Ioanna Zarogianni</h4>
+                <div id='collapseIoanna' class='collapse'>
+                    <p>I am Ioanna, a 10th-grade student at the 1st High School of Pylaia. Having participated in four MUN conferences, the diplomacy, teamwork, and inspiration that characterize the Model United Nations experience have captivated me. Now stepping into the role of Chair for the first time, I am eager to guide debates with enthusiasm, fairness, and respect. Serving as HRC Chair, I’m truly honored to join the Board and discuss “Protecting the Rights of Children and Adolescents in Gaza,” while fostering collaboration, open-mindedness, and the unifying spirit of the UN. I am genuinely looking forward to meeting every delegate in person.</p>
+                </div>
+                <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseIoanna' aria-expanded='false' aria-controls='collapseIoanna'>
+                    [Show Bio]
+                </button>
               ">
         Human Rights Council
       </button>
 
       <button class="role-btn"
               data-committee="UN Women"
-              data-img1="images/chair-placeholder.png"
+              data-img1="karali.jpeg"
               data-img2="images/vice1-placeholder.png"
               data-img3="images/vice2-placeholder.png"
               data-info="
-                <p><strong>Chair:</strong> (to be announced after 26-10-2025)</p>
-                <p><strong>Vice Chair 1:</strong> (to be announced after 26-10-2025)</p>
-                <p><strong>Vice Chair 2:</strong> (to be announced after 26-10-2025)</p>
+                <h4 style='color: var(--teal);'>Chair: Paraskevi Karali</h4>
+                <h4 style='color: var(--teal);'>Vice Chair 1: (to be announced after 26-10-2025)</h4>
+                <h4 style='color: var(--teal);'>Vice Chair 2: (to be announced after 26-10-2025)</h4>
+                
+                <hr style='border-top: 1px dashed var(--gold); margin: 1rem 0;'>
+                
+                <h4 style='color: var(--teal);'>Chair: Paraskevi Karali</h4>
+                <div id='collapseParaskevi' class='collapse'>
+                    <p>My name is Karali Paraskevi, and I am a student at Arsakeio High School of Thessaloniki. I am truly honored to serve as a Chair in UN Women. My MUN journey began two years ago at a conference in Patra, and since then, it has become an integral part of who I am. This will be my seventh conference and my second time chairing. Looking back on my very first experience as a delegate and seeing how far I’ve come is truly mesmerizing. I feel incredibly blessed and excited to help all delegates cultivate their passion for politics and international affairs — just as I have over the years. I wish you all an amazing and unforgettable conference!</p>
+                </div>
+                <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseParaskevi' aria-expanded='false' aria-controls='collapseParaskevi'>
+                    [Show Bio]
+                </button>
               ">
         UN Women
       </button>
@@ -516,9 +564,11 @@
               data-img2="dep_sec.png"
               data-img3="dep_ga.jpg"
               data-info="
-                <p><strong>Chair:</strong> (to be announced)</p>
+                <h4 style='color: var(--teal);'>Chair: (to be announced)</h4>
                 
-                <h4 style='color: var(--teal); margin-top: 1rem;'>Vice Chair 1: Nikolaos Pavlidis Charalampidis</h4>
+                <hr style='border-top: 1px dashed var(--gold); margin: 1rem 0;'>
+                
+                <h4 style='color: var(--teal);'>Vice Chair 1: Nikolaos Pavlidis Charalampidis</h4>
                 <div id='collapseNikolaosCrisis' class='collapse'>
                     <p><strong>Contact:</strong> nkspvlds2009@gmail.com</p>
                     <p>I am <strong>Nikolaos Pavlidis Charalampidis</strong>, a 17-year-old student at the 1st Senior High School of Pylea. It is my utmost honour to serve as Deputy Secretary General for the 1st PyleaMUN. I have been participating in various MUN conferences for three years as both delegate and chair. As a young advocate, I am passionate about engaging and empowering my generation; I believe MUN conferences are vital for exploring and forging sustainable solutions. I look forward to collaborating with all participants to make this MUN a successful and unforgettable experience.</p>
@@ -721,7 +771,18 @@
           gallery.style.gap = '0.5rem';
           
           const images = [];
-          for (let i = 1; i <= 4; i++) {
+          
+          // Only iterate up to 2 for the supervisors now, but keep 4 for Financial Oversight Team
+          let maxImages = 2;
+          if (btn.dataset.name === "Financial Oversight Team") {
+              maxImages = 4;
+          } else if (btn.dataset.committee && btn.dataset.img3) {
+              // Ensure committees with 3 roles still show 3
+              maxImages = 3; 
+          }
+
+
+          for (let i = 1; i <= maxImages; i++) {
             if (btn.dataset[`img${i}`]) {
               images.push(btn.dataset[`img${i}`]);
             }
@@ -731,10 +792,13 @@
             const img = new Image();
             img.src = imgSrc;
             img.onerror = () => {
-                if (imgSrc.startsWith('images/')) {
+                // Keep placeholder image logic for missing files
+                if (imgSrc.startsWith('images/') && !imgSrc.includes('placeholder')) {
                     img.src = imgSrc; 
-                } else {
+                } else if (!imgSrc.includes('placeholder')) {
                     img.src = 'default-profile.png';
+                } else {
+                    img.src = imgSrc;
                 }
             };
             // Inline styling matching the CSS rules
