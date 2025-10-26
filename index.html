@@ -1,521 +1,923 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PyleaMUN</title>
-    <meta name="description" content="PyleaMUN 2026 is the first Model United Nations conference in Pylea, Thessaloniki. Join students from across Greece and beyond to debate global issues and shape the future.">
-    <meta name="keywords" content="Model United Nations, PyleaMUN, Thessaloniki MUN, MUN Greece 2026, Student Diplomacy, Youth Leadership, MUN Conference Europe">
-    <meta name="author" content="PyleaMUN / Panagiotis Domvros">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PyleaMUN Team</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root { --nav-bg:#f8f8f0; --teal:#006d7a; --gold:#c59d12; --cream:#f8f5ec; --text-dark:#333; }
+    body { margin:0; padding-top:56px; font-family:'Lato',sans-serif; background:var(--cream); color:var(--text-dark); }
+    /* FIX: Ensure the background page cannot scroll when the modal is open */
+    body.modal-open { 
+        overflow: hidden !important; 
+        position: fixed; 
+        width: 100%;
+        height: 100%;
+    } 
 
-    <meta property="og:title" content="PyleaMUN 2026 – Model United Nations in Thessaloniki">
-    <meta property="og:description" content="Empowering tomorrow's leaders through youth-driven diplomacy and innovation. January 22–24, 2026.">
-    <meta property="og:image" content="https://pyleamun.github.io/pyleaMUNfinallogo.png">
-    <meta property="og:url" content="https://pyleamun.github.io/">
-    <meta property="og:type" content="website">
+    .navbar-custom{ background:var(--nav-bg); box-shadow:0 2px 4px rgba(0,0,0,.1); }
+    header{text-align:center; margin:2rem 0;} header img{max-width:200px; margin-bottom:1rem;}
+    
+    /* ORIGINAL STYLES FOR HEADINGS */
+    h1{ font-family:'Playfair Display',serif; color:var(--teal); font-size:2.5rem; margin-bottom:2rem; }
+    .section{ margin-bottom:3rem; }
+    h2{ font-family:'Playfair Display',serif; color:var(--gold); font-size:1.8rem; border-bottom:2px solid var(--teal); display:inline-block; padding-bottom:.2rem; margin-bottom:1rem; }
+    
+    .role-btn{ display:block; width:100%; text-align:left; background:none; border:2px solid var(--teal); padding:.5rem; border-radius:4px; font-weight:bold; color:var(--teal); transition:.3s; margin-bottom:.5rem; }
+    .role-btn:hover{ background:var(--teal); color:#fff; }
+    .modal-overlay{ position:fixed; inset:0; background:rgba(0,0,0,.6); display:flex; align-items:center; justify-content:center; opacity:0; visibility:hidden; transition:.3s; z-index:1050; }
+    .modal-overlay.active{ opacity:1; visibility:visible; }
+    .modal-box{ 
+        background:#fff; 
+        border-radius:8px; 
+        max-width:500px; 
+        width:90%; 
+        padding:2rem; 
+        position:relative; 
+        transform:translateY(-20px); 
+        transition:.3s; 
+        max-height: 95vh; 
+        overflow-y: auto; 
+    }
+    .modal-overlay.active .modal-box{ transform:translateY(0); }
+    .modal-gallery img, .modal-single img{ object-fit:cover; width:120px; height:120px; border-radius:50%; border:3px solid var(--gold); margin:0 .5rem; }
+    .modal-gallery{ display:flex; justify-content:center; margin-bottom:1rem; }
+    .modal-single{ display:flex; justify-content:center; margin-bottom:1rem; }
+    .close-btn{ position:absolute; top:.5rem; right:.5rem; background:none; border:none; font-size:1.5rem; color:var(--teal); cursor:pointer; }
+    #modalName{ text-align:center; margin-bottom:.5rem; font-weight:bold; }
+    #modalRole{ text-align:center; margin-bottom:.5rem; color:var(--gold); }
+    #modalInfo{ text-align:left; }
+    .collapse-toggle { color: var(--teal); cursor: pointer; text-decoration: underline; background: none; border: none; padding: 0; font-weight: bold; }
+    .collapse-toggle:hover { color: var(--gold); }
+    /* This style ensures all person names/titles inside the modal are uniform (as requested for the Chairs section) */
+    .modal-box h4 {
+        font-size: 1.1rem; 
+        font-weight: 700;
+        color: var(--teal);
+    }
 
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="PyleaMUN 2026">
-    <meta name="twitter:description" content="Join the first Model United Nations in Pylea, Thessaloniki. January 22–24, 2026.">
-    <meta name="twitter:image" content="https://pyleamun.github.io/pyleaMUNfinallogo.png">
-
-    <meta name="robots" content="index, follow">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body { font-family: 'Roboto', sans-serif; margin: 0; background-color: #f8f8f0; }
-        .navbar-custom { background-color: #f8f8f0; }
-        .hero {
-            background-image: url('pyleaMUNfinallogo.png');
-            background-repeat: no-repeat;
-            background-size: contain;
-            background-position: center center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            text-align: center;
-            min-height: 60vh; /* Increased height */
-            margin-top: 56px; /* Account for fixed navbar */
-        }
-        .hero::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background-color: rgba(248, 248, 240, 0.4); /* Reduced opacity */
-        }
-        .hero-content { 
-            position: relative; 
-            z-index:1; 
-            max-width:80%; 
-            color:#001f3f; 
-            padding:2rem;
-            margin-top: 150px; /* Push content down */
-        }
-        .hero-content h1 { text-shadow:2px 2px 4px rgba(255,255,255,0.7); }
-        .hero-content .date-highlight { display:inline-block; color:#001f3f; font-size:1.25rem; font-weight:700; padding:0.2em 0.5em; border-radius:0.3em; font-style:italic; margin-bottom:1rem; }
-        .section-title { 
-            margin: 2.5rem 0 1.5rem; /* Reduced margins */
-            text-align:center; 
-            color:#001f3f; 
-        }
-        .engraved { text-shadow:1px 1px 0 #aaa, -1px -1px 0 #fff; }
-        .about-text p { text-align:justify; font-style:italic; line-height:1.6; }
-        .committee-card { transition:transform .3s; cursor:pointer; }
-        .committee-card:hover { transform:translateY(-5px); }
-        .card-title { color:royalblue; font-weight:600; }
-        .modal-footer .btn-primary { color:#001f3f; background-color:#fff; border-color:#001f3f; }
-        .modal-footer .btn-primary:hover { background-color:#e6e6e6; }
-        footer { background:#222; color:#aaa; padding:2rem 0; }
-        footer a { color:#aaa; text-decoration:none; }
-        .social-icon {
-            font-size: 1.5rem;
-            margin: 0 10px;
-            transition: color 0.3s;
-        }
-        .social-icon:hover { color: #fff; }
-        .fa-facebook:hover { color: #3b5998; }
-        .fa-instagram:hover { color: #e4405f; }
-        .fa-tiktok:hover { color: #69c9d0; }
-
-        #countdown-section {
-            background: none;
-            border-top: none;
-            border-bottom: none;
-        }
-        #countdown div {
-            min-width: 90px;
-            padding: 0.5em;
-            background-color: transparent;
-            box-shadow: none;
-            border-radius: 0;
-            transition: none;
-        }
-        #countdown div:hover { transform: scale(1.05); }
-        #countdown span { display: block; font-size: 2rem; color: #007bff; }
-        #countdown .small { font-size: 0.9rem; color: #555; }
-
-        /* --- Moving Banner CSS --- */
-        .moving-banner-container {
-            margin-top: 56px;
-            background-color: rgba(32, 201, 151, 0.85);
-            overflow: hidden;
-            padding: 12px 0;
-            white-space: nowrap;
-        }
-
-        .moving-banner-content {
-            display: inline-block;
-            animation: marquee 60s linear infinite; 
-        }
-
-        .moving-banner-content span {
-            color: #dc3545; 
-            font-weight: 700; 
-            font-size: 1.44rem; 
-            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.7); 
-            padding-right: 60px;
-            vertical-align: middle;
-        }
-
-        @keyframes marquee {
-            from { transform: translateX(0); }
-            to { transform: translateX(-50%); }
-        }
-        /* --- End Moving Banner CSS --- */
-
-        /* --- Golden Flashing Banner CSS --- */
-        .golden-flashing-banner {
-            padding: 12px 0;
-            text-align: center;
-            font-size: 1.2rem;
-            color: #212529;
-            animation: flash-animation 1.5s infinite;
-            border-top: 1px solid #c9b037;
-            border-bottom: 1px solid #c9b037;
-        }
-
-        @keyframes flash-animation {
-            0%, 100% {
-                background-color: #ffd700; /* Gold */
-                box-shadow: 0 0 8px #ffd700;
-            }
-            50% {
-                background-color: #ffec80; /* Lighter Gold */
-                box-shadow: 0 0 25px #ffec80;
-            }
-        }
-        /* --- End Golden Flashing Banner CSS --- */
-
-        /* --- Green Banner CSS --- */
-        .green-banner {
-            background-color: #eafaf1; 
-            margin-top: 0;
-        }
-
-        .green-banner .moving-banner-content span {
-            color: #157347; 
-        }
-        /* --- End Green Banner CSS --- */
-
-        /* --- Sky Blue Banner CSS --- */
-        .sky-blue-banner {
-            background-color: #e1f5fe; 
-            margin-top: 0;
-        }
-
-        .sky-blue-banner .moving-banner-content span {
-            color: #0277bd; 
-        }
-        /* --- End Sky Blue Banner CSS --- */
-        
-        /* --- Mobile Specific Adjustments --- */
-        @media (max-width: 768px) {
-            .hero {
-                min-height: 40vh; /* Adjusted for mobile */
-            }
-            .hero-content {
-                margin-top: 100px; /* Adjusted for mobile */
-            }
-            .hero-content h1.display-4 {
-                font-size: 2.5rem; /* Smaller hero title */
-            }
-            .moving-banner-content span {
-                font-size: 1rem; /* Smaller banner text */
-            }
-            .section-title {
-                margin-top: 2rem; /* Tighter section titles on mobile */
-            }
-            .golden-flashing-banner {
-                font-size: 1rem;
-                padding: 10px 5px;
-            }
-        }
-        /* Added for justified text in popups */
-        .modal-body ul li {
-            text-align: justify;
-        }
-    </style>
+ /* MOBILE OPTIMIZATIONS FOR MODALS */
+    @media (max-width: 576px) {
+      .modal-box {
+        max-width: 95%;
+        width: 95%;
+        padding: 1rem;
+      }
+      .modal-gallery img,
+      .modal-single img {
+        width: 80px;
+        height: 80px;
+      }
+      .modal-box h4 {
+        font-size: 1rem; /* Further reduction on mobile */
+      }
+      #modalName { font-size: 1.2rem; }
+      #modalRole { font-size: 1rem; }
+    .small-role-btn {
+  font-size: 0.9rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  min-height: 60px;
+}
+    }
+      </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light navbar-custom fixed-top">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="#">
-                <img src="pyleaMUNfinallogo.png" alt="PyleaMUN Logo" class="me-2" style="height:40px;">
-                PyleaMUN
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navMenu">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#committees">Committees</a></li>
-                    <li class="nav-item"><a class="nav-link" href="https://pyleamun.github.io/study-guides2026/" target="_blank" rel="noopener">Study Guides</a></li>
-                    <li class="nav-item"><a class="nav-link" href="https://pyleamun.github.io/del-manual/" target="_blank" rel="noopener">Delegate Manual</a></li>
-                    <li class="nav-item"><a class="nav-link" href="https://pyleamun.github.io/venues2026/" target="_blank" rel="noopener">Venues</a></li>
-                    <li class="nav-item"><a class="nav-link" href="https://pyleamun.github.io/people2026/" target="_blank" rel="noopener">The People</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#register">Registration</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-</ul>
-            </div>
-        </div>
-    </nav>
 
-    <header class="hero py-5"> <div class="hero-content">
-            <h1 class="display-4">Welcome to PyleaMUN 2026</h1>
-            <div class="date-highlight">January 22nd &ndash; 24th 2026</div>
-            <br>
-            <div class="d-flex flex-wrap justify-content-center gap-3">
-                <a href="https://pyleamun.github.io/registration2026/" target="_blank" class="btn btn-primary btn-lg">Register Now</a>
-                <a href="https://pyleamun.github.io/countries2026/" target="_blank" class="btn btn-primary btn-lg">Country Availability</a>
-</div>
-            <div class="d-flex flex-column align-items-center mt-3">
-                <button class="btn btn-primary btn-lg" onclick="window.open('https://pyleamun.github.io/handbook/', '_blank')">The PyleaMUN Handbook</button>
-                <button class="btn btn-primary btn-lg mt-2" data-bs-toggle="modal" data-bs-target="#modalFees">No Fees!</button>
-            </div>
-        </div>
+  <nav class="navbar navbar-expand-lg navbar-light navbar-custom fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center" href="https://pyleamun.github.io/pyleamun2026/">
+        <img src="pyleaMUNfinallogo1.png" alt="Logo" height="40" class="me-2">
+        PyleaMUN
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navMenu"
+        aria-controls="navMenu"
+        aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="https://pyleamun.github.io/pyleamun2026/">Home</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <header>
+      <img src="pyleaMUNfinallogo.png" alt="Logo">
+      <h1>Meet the Team</h1>
     </header>
-    <section id="countdown-section" class="pt-4 pb-0 text-center bg-light"> <div class="container">
-            <h2 class="mb-4 text-primary fw-bold">Countdown to PyleaMUN 2026</h2>
-            <div id="countdown" class="d-flex justify-content-center flex-wrap gap-4 fs-3 fw-semibold">
-                <div><span id="days">--</span><div class="small">Days</div></div>
-                <div><span id="hours">--</span><div class="small">Hours</div></div>
-                <div><span id="minutes">--</span><div class="small">Minutes</div></div>
-                <div><span id="seconds">--</span><div class="small">Seconds</div></div>
-            </div>
-        </div>
-    </section>
+    <div class="section">
+      <h2>PyleaMUN Leadership</h2>
+<button class="role-btn" 
+        data-name="Panagiotis Domvros" 
+        data-role="President & Director" 
+        data-img="domvros.png" 
+        data-info="<p><strong>Contact:</strong> pyleamun.president@gmail.com</p><p>Panagiotis Domvros, MA in Theatre Studies (University of Leeds) and BA in English Language &amp; Literature (Aristotle University of Thessaloniki), brings over two decades of educational leadership to our Model United Nations. Since 2017 he has served as Principal in Secondary Education spearheading intercultural dialogue initiatives, conflict-resolution workshops and digital‐skills training for both students and teachers. As President and Director, he will leverage his extensive experience as an I.E.P. expert trainer and teacher-trainer to cultivate a dynamic, inclusive environment that empowers delegates to develop their diplomatic, analytical and collaborative skills. He will oversee all conference operations.</p>">
+    President & Director
+</button>
+<button class="role-btn"
+        data-name="Fani Vasilikou"
+        data-role="Director & Chief Advisor"
+        data-img="Vasilikou.jpg"
+        data-info="<p><strong>Contact:</strong> pyleamun.director@gmail.com</p><p>Fani Vasilikou has dedicated her life to empowering young minds. As an English teacher in Secondary Education for over 30 years, she has inspired generations of students with her passion for language, learning, and global citizenship. Holding a BA in English Language and Literature from Aristotle University of Thessaloniki and an MA in Enabling Learning from Canterbury University, she combines academic excellence with inclusive, student-centered teaching. For 15 years, she has been mentoring students to develop their voices and diplomatic skills in MUN conferences regionally and abroad. As the Co-director of the PyleaMun, she will contribute to the organization of the conference through her vision, leadership, and unwavering commitment aiming to establish it as a respected and enriching educational event.She will provide guidance and ensure the conference meets educational goals.</p>">
+    Director & Chief Advisor
+</button>
+<button class="role-btn" 
+        data-name="Nickolas Loukas" 
+        data-role="Technical & Artisic Director, Assistant to the President" 
+        data-img="assistant.png" 
+        data-info="<p>As the Technical and Artistic Director for the inaugural PyleaMUN conference, and serving as the Assistant to the President, 16-year-old Nickolas Loukas is a dynamic force behind the scenes. With a keen eye for detail and a passion for creative expression, he is responsible for shaping the conference's visual identity and ensuring a seamless technical experience for all participants.</p><p><strong>Contact: nickolasLoukas.pyleamun@mail.com</strong></p>">
+    Technical & Artisic Director, Assistant to the President
+</button>
 
-    <section id="empowering" class="container py-4"> <h2 class="section-title text-center engraved">Empowering tomorrow<br><em>Youth-driven innovation for a world that lasts</em></h2>
-        <div class="mt-4">
-            <p>Thessaloniki &mdash; ancient crossroads of ideas and empires &mdash; beckons the next wave of young diplomats to ignite bold solutions, fuse tradition with technology, and chart a resilient future.</p>
-            <ul class="list-unstyled text-center">
-                <li>🌟 <strong>Why Here?</strong> From the White Tower to the waterfront, history's lessons fuel your vision.</li>
-                <li>⚡ <strong>Why Now?</strong> As tomorrow's leaders, you hold the keys to communities, climate and digital frontiers.</li>
-                <li>🎯 <strong>Your Mission:</strong> Unite, debate, draft &mdash; and leave a legacy that generations will follow.</li>
-            </ul>
-        </div>
-        <div class="text-center mt-4">
-            <div class="d-flex flex-column align-items-center gap-3">
-                <a href="https://pyleamun.github.io/programme2026/" target="_blank" rel="noopener" class="btn btn-primary btn-lg">Conference Programme</a>
-                <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modalAgenda">Agenda</button>
-                <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modalAbout">About PyleaMUN</button>
-            </div>
-        </div>
-    </section>
-
-    <section id="committees" class="container py-4"> <h2 class="section-title">Committees</h2>
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="card committee-card h-100">
-                    <div class="card-body d-flex align-items-center justify-content-center position-relative">
-                        <h5 class="card-title text-center">UN Environment Programme</h5>
-                        <a href="https://pyleamun.github.io/unep2026/" class="stretched-link" target="_blank"></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card committee-card h-100">
-                    <div class="card-body d-flex align-items-center justify-content-center position-relative">
-                        <h5 class="card-title text-center">Security Council</h5>
-                        <a href="https://pyleamun.github.io/security2026/" class="stretched-link" target="_blank"></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card committee-card h-100">
-                    <div class="card-body d-flex align-items-center justify-content-center position-relative">
-                        <h5 class="card-title text-center">Economic and Social Council</h5>
-                        <a href="https://pyleamun.github.io/ecosoc2026/" class="stretched-link" target="_blank"></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row g-4 mt-3">
-            <div class="col-md-4">
-                <div class="card committee-card h-100">
-                    <div class="card-body d-flex align-items-center justify-content-center position-relative">
-                        <h5 class="card-title text-center">NATO</h5>
-                        <a href="https://pyleamun.github.io/nato2026/" class="stretched-link" target="_blank"></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card committee-card h-100">
-                    <div class="card-body d-flex align-items-center justify-content-center position-relative">
-                        <h5 class="card-title text-center">World Health Organisation</h5>
-                        <a href="https://pyleamun.github.io/who2026/" class="stretched-link" target="_blank"></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card committee-card h-100">
-                    <div class="card-body d-flex align-items-center justify-content-center position-relative">
-                        <h5 class="card-title text-center">Human Rights Council</h5>
-                        <a href="https://pyleamun.github.io/hrc2026/" class="stretched-link" target="_blank"></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row g-4 mt-3">
-            <div class="col-md-4">
-                <div class="card committee-card h-100">
-                    <div class="card-body d-flex align-items-center justify-content-center position-relative">
-                        <h5 class="card-title text-center">UNESCO</h5>
-                        <a href="https://pyleamun.github.io/unesco2026/" class="stretched-link" target="_blank"></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card committee-card h-100">
-                    <div class="card-body d-flex align-items-center justify-content-center position-relative">
-                        <h5 class="card-title text-center">UN Women</h5>
-                        <a href="https://pyleamun.github.io/un-women2026/" class="stretched-link" target="_blank"></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card committee-card h-100">
-                    <div class="card-body d-flex align-items-center justify-content-center position-relative">
-                        <h5 class="card-title text-center">Historical Crisis Committee</h5>
-                        <a href="https://pyleamun.github.io/historical/" class="stretched-link" target="_blank"></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="text-center mt-5">
-            <a href="https://pyleamun.github.io/ga2026/" target="_blank" class="btn btn-danger btn-lg">General Assembly Plenary</a>
-        </div>
-    </section>
-
-    <section class="text-center mb-2"> <a href="https://pyleamun.github.io/procedure2026/" target="_blank" class="btn btn-primary btn-lg">
-            Rules of Procedure
-        </a>
-    </section>
-
-    <section class="text-center mb-2"> <a href="https://pyleamun.github.io/study-guides2026/" target="_blank" class="btn btn-primary btn-lg">Study Guides</a>
-    </section>
-
-    <section class="text-center mb-2"> <a href="https://pyleamun.github.io/del-manual/" target="_blank" class="btn btn-primary btn-lg">Delegate Manual</a>
-    </section>
+     </div> 
     
-    <section id="venues" class="text-center mb-2"> <a href="https://pyleamun.github.io/venues2026/" target="_blank" class="btn btn-primary btn-lg">Venues</a>
-    </section>
+    <div class="section">
+      <h2>Senior Student Advisors and Advisory Board Members</h2>
+      <button class="role-btn"
+              data-name="Alexandra Moutropoulou"
+              data-role="Senior Student Advisor"
+              data-img="Alexandra.jpg"
+              data-info="
+                <p>Hi everyone! My name is <strong>Alexandra Moutropoulou</strong>, and I recently graduated from the Faculty of Law at Aristotle University of Thessaloniki. I still remember participating in my very first MUN conference as a high school student — little did I know how much it would shape my academic and personal journey. Since then, I have taken part in over 20 MUN conferences, both in Greece and abroad, serving in various roles such as delegate, chair, and member of the Secretariat. I also had the honor of serving as President of the United Nations Society of AUTh during the 2024–2025 academic year, an experience that truly deepened my commitment to diplomacy, dialogue, and leadership. To all those who are just beginning their MUN journey, my advice is this: never be afraid to step out of your comfort zone and never set limits on what you can achieve!</p>
+                <p><strong>Email:</strong> <a href='mailto:alexmoutrop@gmail.com'>alexmoutrop@gmail.com</a></p>
+              ">
+        Alexandra Moutropoulou
+      </button>
+      <button class="role-btn"
+              data-name="Filippos Kokkonos"
+              data-role="Senior Student Advisor"
+              data-img="Filippos.jpg"
+              data-info="
+                <p>My name is <strong>Filippos Kokkonos</strong>, I am a final year law student in the Aristotle University of Thessaloniki. I started my MUN journey four years ago and I cannot imagine how my university life would be without it. I have participated in various MUNs in Greece and abroad, in multiple positions, and I have a soft spot for crisis committees.</p>
+                <p><strong>Email:</strong> <a href='mailto:f.kokkonos@gmail.com'>f.kokkonos@gmail.com</a></p>
+              ">
+        Filippos Kokkonos
+      </button>
+      <button class="role-btn"
+              data-name="Panagiotis Papakrivos"
+              data-role="Senior Student Advisor"
+              data-img="Panagiotis.jpg"
+              data-info="
+                <p>My name is <strong>Panagiotis Papakrivos</strong>. I was born and raised in Thessaloniki, Greece. I am 20 years old and a third-year student in the Faculty of Law of the Aristotle University of Thessaloniki. After having participated in Model United Nations Conferences once as a Deputy Secretary, once as a chair and twice before as a delegate, I'm very excited for the wonderful opportunity to contribute to this year's Pylea MUN! I really value activities that broaden one's horizons, explaining the reasons why I love history, debating, travelling around the world and of course MUNs. I hope that by the end of Pylea MUN 2026 we can all share amazing memories!</p>
+              ">
+        Panagiotis Papakrivos
+      </button>
+      <button class="role-btn"
+              data-name="Areti Saralekou"
+              data-role="Senior Student Advisor"
+              data-img="Areti.jpg"
+              data-info="
+                <p>My name is <strong>Areti Saralekou</strong> and I am a third year student at the Faculty of Law at Aristotle University of Thessaloniki. From a young age, I was captivated by diplomacy, international relations and debate; interests that I had the opportunity to explore more deeply during my studies. I have participated in various MUNs both in Greece and abroad, and I have the honour to serve this year as the **Secretary General of the United Nations Society of the Aristotle University of Thessaloniki**. I have written articles on international relations and speak English, French, German and Spanish.</p>
+              ">
+        Areti Saralekou
+      </button>
+      <button class="role-btn"
+              data-name="Advisor 5 Name"
+              data-role="Senior Student Advisor"
+              data-img="images/advisor-placeholder.png"
+              data-info="<p><strong>Name:</strong> (to be announced)</p><p><strong>Role Summary:</strong> Senior Student Advisors provide high-level youth perspective and mentorship to the core team.</p>">
+        Senior Student Advisor 5 (to be announced)
+      </button>
+      <button class="role-btn"
+              data-name="Advisor 6 Name"
+              data-role="Senior Student Advisor"
+              data-img="images/advisor-placeholder.png"
+              data-info="<p><strong>Name:</strong> (to be announced)</p><p><strong>Role Summary:</strong> Senior Student Advisors provide high-level youth perspective and mentorship to the core team.</p>">
+        Senior Student Advisor 6 (to be announced)
+      </button>
+      <button class="role-btn"
+              data-name="Advisor 7 Name"
+              data-role="Advisory Board Member"
+              data-img="images/advisor-placeholder.png"
+              data-info="<p><strong>Name:</strong> (to be announced)</p><p><strong>Role Summary:</strong> Advisory Board Members offer expert guidance on academic standards and operational strategy.</p>">
+        Advisory Board Member 7 (to be announced)
+      </button>
+      <button class="role-btn"
+              data-name="Advisor 8 Name"
+              data-role="Advisory Board Member"
+              data-img="images/advisor-placeholder.png"
+              data-info="<p><strong>Name:</strong> (to be announced)</p><p><strong>Role Summary:</strong> Advisory Board Members offer expert guidance on academic standards and operational strategy.</p>">
+        Advisory Board Member 8 (to be announced)
+      </button>
+    </div>
+    
+    <div class="section">
+      <h2>Core Executives</h2>
+<button class="role-btn"
+  data-name="Financial Oversight Team"
+  data-role="Financial Oversight Team Composition"
+  data-img1="finance_chair.png"
+  data-img2="finance_vc1.jpg"
+  data-img3="finance_vc2.jpg"
+  data-img4="finance_member.png"
+  data-info="
+    <p><strong>Chair:</strong> Ioannis Varvoutas</p>
+    <p><strong>Vice Chair:</strong> Anna Giannoudi</p>
+    <p><strong>Vice Chair:</strong> Stavroula Kappa</p>
+    <p><strong>Member:</strong> Chrysa Paplomata</p>
+    <div id='collapseFinance' class='collapse'>
+        <p>The Financial Oversight Team manages budgeting, financial planning, and reporting to ensure fiscal responsibility and transparency. They oversee all monetary transactions and budget adherence for the entire conference.</p>
+    </div>
+    <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseFinance' aria-expanded='false' aria-controls='collapseFinance'>
+        [Show Bio]
+    </button>
+  ">
+  Financial Oversight Team
+</button>
 
-    <section class="text-center mb-4"> <a href="https://pyleamun.github.io/people2026/" target="_blank" class="btn btn-primary btn-lg">The People</a>
-    </section>
+      <button class="role-btn" 
+  data-name="Iosif Gidiotis" 
+  data-role="Technical Executive Advisor" 
+  data-img="tech.png" 
+  data-info="
+    <h4 style='color: var(--teal);'>Iosif Gidiotis</h4>
+    <div id='collapseIosif' class='collapse'>
+      <p>(BA English Language and Literature, AUTh Greece; MPhil Applied Linguistics, TCD Ireland) is currently a doctoral researcher in education futures at the Department of Learning at the ITM School of KTH Royal Institute of Technology in Sweden. His academic work has been presented at international conferences, with earlier research focusing on the effects of the COVID-19 pandemic on the use of assessment for learning. He has been actively involved in professional networks related to language learning and teaching, as well as the digitalisation of higher education. He is an Associate Fellow of the Higher Education Academy (AFHEA) in the UK and a Member of the Association for Learning Technologies (ALT), in recognition of his contributions to teaching and learning in higher education.</p>
+    </div>
+    <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseIosif' aria-expanded='false' aria-controls='collapseIosif'>
+        [Show Bio]
+    </button>
+  ">
+  Technical Executive Advisor
+</button>
+      <button class="role-btn" data-name="Stavros Tambouratzis" data-role="Staff Executive Supervisor" data-img="tambouratzis.png" data-info="<p>Stavros Tambouratzis oversees and coordinates the staff executives, ensuring alignment between executive decisions and staff execution.</p>">Staff Executive Supervisor</button>
+</div>
+      
+    <div class="section">
+  <h2>General Assembly Secretariat</h2>
 
-    <div class="modal fade" id="modalAbout" tabindex="-1" aria-labelledby="labelAbout" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="labelAbout">About PyleaMUN</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body about-text">
-                    <p>PyleaMUN is excited to host its very first conference, laying the foundation for what we hope will become a meaningful tradition within the Model United Nations community in Greece and beyond. This initial gathering brings together students and young thinkers who are eager to explore diplomacy, global issues, and the power of collaboration.</p>
-                    <p>Throughout the event, participants will engage in thoughtful discussions on pressing challenges — from climate and health to peace and human rights — while developing their critical thinking and public speaking skills in a supportive setting.</p>
-                    <p>At its core, PyleaMUN encourages the values of cooperation, respect, and open dialogue — the same values that guide the United Nations. Delegates will have the chance to meet peers from diverse backgrounds, share perspectives, and gain a deeper understanding of global affairs.</p>
-                    <p>Guided by a distinguished panel of chairs and expert advisors, our participants will be challenged to craft innovative resolutions, to build consensus among divergent viewpoints, and to embody the highest standards of diplomatic conduct.</p>
-                    <p>Looking ahead, we hope this conference will inspire continued interest in international issues, respectful dialogue, and student-led initiatives. Our aim is for PyleaMUN to grow into a welcoming space for learning, debate, and collaboration in the years to come.</p>
-                    <p>Together, we embark on a journey not merely of debate, but of shared purpose: to empower the leaders of tomorrow to confront global challenges with courage, creativity, and conviction.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
+  <button class="role-btn"
+          data-name="Eleftheria Paidaraki"
+          data-role="President of the GA"
+          data-img="ga_president.png"
+          data-info="
+            <h4 style='color: var(--teal);'>Eleftheria Paidaraki</h4>
+            <p><strong>Contact:</strong>pedarakieleftheria@gmail.com</p>
+            <div id='collapseEleftheria' class='collapse'>
+                <p>My name is <strong>Eleftheria Paidaraki</strong>, I’m 17, and honored to serve as President of the GA for PyleaMUN. I’ll work closely with chairs, the academic team, and the Secretariat to ensure high academic standards and smooth committee operation. Having chaired and debated in several MUNs, I believe in teamwork, respect, and continuous growth. I’m committed to making this conference both professional and unforgettable for everyone</p>
             </div>
+            <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseEleftheria' aria-expanded='false' aria-controls='collapseEleftheria'>
+                [Show Bio]
+            </button>
+          ">
+    President of the GA
+  </button>
+  
+  <button class="role-btn"
+        data-name="Konstantinos Eskitzis"
+        data-role="Secretary General"
+        data-img="sec_gen.png"
+        data-info="
+          <h4 style='color: var(--teal);'>Konstantinos Eskitzis</h4>
+          <p><strong>Contact:</strong> <a href='mailto:eskikostas@gmail.com'>eskikostas@gmail.com</a></p>
+          <div id='collapseKonstantinos' class='collapse'>
+              <p>I am <strong>Konstantinos Eskitzis</strong>, a 17-year-old student at the 1st Senior High School of Pylea, serving as Secretary General for the 1st PyleaMUN. With a passion for diplomacy and entrepreneurship and extensive experience as both delegate and chair, I’m committed to delivering a well-structured, intellectually stimulating experience. I look forward to working with you all to create productive debates and lifelong memories!</p>
+              
+              <p style='margin-top: 1rem;'><strong>Key Achievements:</strong></p>
+              <ul style='padding-left: 20px; margin-top: 0.5rem; list-style-type: &quot;🏆&quot;; padding-left: 1.5rem;'>
+                  <li style='padding-left: 0.5rem;'>Best Delegate of the UNEP Committee at the CWMUN Abu Dhabi Conference</li>
+                  <li style='margin-top: 0.5rem; padding-left: 0.5rem; list-style-type: &quot;🏅&quot;;'>Ranked 21st nationwide in the Economics Olympiad (Greece)</li>
+              </ul>
+
+              <p style='margin-top: 1rem;'>
+                  🔗 <strong>LinkedIn:</strong> <a href='https://www.linkedin.com/in/eskitzis-konstantinos' target='_blank' rel='noopener noreferrer'>/in/eskitzis-konstantinos</a>
+              </p>
+          </div>
+          <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseKonstantinos' aria-expanded='false' aria-controls='collapseKonstantinos'>
+              [Show Bio]
+          </button>
+        ">
+  Secretary General
+</button>
+
+  <button class="role-btn"
+          data-name="Sofia Sougari"
+          data-role="Deputy President of the GA"
+          data-img="dep_ga.jpg"
+          data-info="
+            <h4 style='color: var(--teal);'>Sofia Sougari</h4>
+            <p><strong>Contact:</strong>sougarisofia@gmail.com</p>
+            <div id='collapseSofiaGA' class='collapse'>
+                <p>My name is <strong>Sofia Sougari</strong>, I am 16 years old and I am honoured to serve as Deputy President of the GA for PyleaMUN. Driven by my passion for diplomacy I have debated and chaired  in multiple MUNs. As a major advocate of teamwork I look forward to working closely with chairs and delegates to ensure a successful, fun, and unforgettable conference for all. </p>
+            </div>
+            <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseSofiaGA' aria-expanded='false' aria-controls='collapseSofiaGA'>
+                [Show Bio]
+            </button>
+          ">
+    Deputy President of the GA
+  </button>
+
+  <button class="role-btn"
+          data-name="Nikolaos Pavlidis Charalampidis"
+          data-role="Deputy Secretary General"
+          data-img="dep_sec.png"
+          data-info="
+            <h4 style='color: var(--teal);'>Nikolaos Pavlidis Charalampidis</h4>
+            <p><strong>Contact:</strong> nkspvlds2009@gmail.com</p>
+            <div id='collapseNikolaosGA' class='collapse'>
+                <p>I am <strong>Nikolaos Pavlidis Charalampidis</strong>, a 17-year-old student at the 1st Senior High School of Pylea. It is my utmost honour to serve as Deputy Secretary General for the 1st PyleaMUN. I have been participating in various MUN conferences for three years as both delegate and chair. As a young advocate, I am passionate about engaging and empowering my generation; I believe MUN conferences are vital for exploring and forging sustainable solutions. I look forward to collaborating with all participants to make this MUN a successful and unforgettable experience.</p>
+            </div>
+            <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseNikolaosGA' aria-expanded='false' aria-controls='collapseNikolaosGA'>
+                [Show Bio]
+            </button>
+          ">
+    Deputy Secretary General
+  </button>
+</div>
+
+      
+<div class="section">
+  <h2>Executive Team</h2>
+
+  <button class="role-btn"
+        data-name="Evangelos Papadopoulos"
+        data-role="Head of Internal Affairs"
+        data-img="head_exec.png"
+        data-info="
+            <h4 style='color: var(--teal);'>Evangelos Papadopoulos</h4>
+            <p><strong>Contact:</strong> vnglspapadopoulos@gmail.com</p>
+            <div id='collapseEvangelos' class='collapse'>
+                <p>I am <strong>Evangelos Papadopoulos</strong>, a 15-year-old student at the 1st Middle School of Pylea, serving as **Head of Internal Affairs** for the Pylaia Model United Nations session. I am responsible for managing the Executive Team, coordinating internal logistics and staff, and ensuring the smooth, day-to-day operation of the conference. Having participated in numerous MUN conferences both in Greece and internationally—as delegate and chair—I bring a deep understanding of diplomacy, international relations, and public speaking. I’m committed to making PyleaMUN an engaging, high-quality experience and look forward to fostering meaningful dialogue and future leaders!</p>
+            </div>
+            <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseEvangelos' aria-expanded='false' aria-controls='collapseEvangelos'>
+                [Show Bio]
+            </button>
+        ">
+  Head of Internal Affairs
+</button>
+
+  <button class="role-btn" 
+    data-role="Head of External Affairs" 
+    data-name="Alexandros Potolios"
+    data-img="potolios.jpg" 
+    data-info="
+        <h4 style='color: var(--teal);'>Alexandros Potolios</h4>
+        <div id='collapseAlexandros' class='collapse'>
+            <p>I am <strong>Alexandros Potolios</strong>, a 16-year-old student at Arsakeio High School of Thessaloniki, and it is my utmost honor to serve as the **Head of External Affairs** at PyleaMUN. My journey in diplomacy and debate began in 7th grade, and since then, I have had the privilege of participating in numerous MUN conferences both nationally and internationally, competing in debate tournaments, and actively engaging in the European Youth Parliament (EYP) community.</p>
+            <p>Throughout these experiences, I have been honored with several distinctions and have had the opportunity to serve in key leadership positions that have shaped my passion for diplomacy, teamwork, and academic excellence.</p>
+            <p>At PyleaMUN, I aim to bring my unwavering dedication to fostering meaningful diplomatic dialogue, ensuring the conference runs seamlessly, the executive staff operates efficiently, and that every committee upholds the highest academic standards.</p>
+            <p>I am truly looking forward to meeting you all in person this January and to sharing an unforgettable PyleaMUN experience together!</p>
         </div>
+        <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseAlexandros' aria-expanded='false' aria-controls='collapseAlexandros'>
+            [Show Bio]
+        </button>
+    ">
+    Head of External Affairs
+  </button>
+
+  <button class="role-btn" 
+    data-name="Vasiliki Yfouli"
+    data-role="Secretary of the Executives and Press Coordinator" 
+    data-img="press_yfouli.jpg" 
+    data-info="<p><strong>Press Coordinator:</strong> Vasiliki Yfouli</p><p>Vasiliki Yfouli serves as the dedicated Press Coordinator, ensuring effective communication and media coverage for the conference. Her role involves coordinating press activities, managing media relations, and contributing to public communication strategy.</p>">
+    Secretary of the Executives and Press Coordinator
+  </button>
+</div>
+    <div class="section">
+      <h2>The Chairs</h2>
+      
+      <button class="role-btn"
+              data-name="Supervision Team"
+              data-role="Committee Chairs Supervisors"
+              data-img1="Vasilikou.jpg"
+              data-img2="domvros.png"
+              data-info="
+                <h4 style='color: var(--teal);'>Supervisor 1: Fani Vasilikou</h4>
+                <h4 style='color: var(--teal);'>Supervisor 2: Panagiotis Domvros (President & Director)</h4>
+                <div id='collapseSupervisors' class='collapse'>
+                    <p>The Committee Chairs Supervisors oversee and guide all committee chairs, ensuring smooth operation and adherence to MUN procedures, maintaining the highest academic standards.</p>
+                </div>
+                <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseSupervisors' aria-expanded='false' aria-controls='collapseSupervisors'>
+                    [Show Bio]
+                </button>
+              ">
+        Committee Chairs Supervisors
+      </button>
+
+      <button class="role-btn"
+              data-committee="UN Environment Programme"
+              data-img1="images/chair-placeholder.png"
+              data-img2="ramadanis.jpg"
+              data-img3="images/vice2-placeholder.png"
+              data-info="
+                <h4 style='color: var(--teal);'>Chair: (to be announced after 26-10-2025)</h4>
+                <h4 style='color: var(--teal);'>Vice Chair 1: Stelios Ramadanis</h4>
+                <h4 style='color: var(--teal);'>Vice Chair 2: (to be announced after 26-10-2025)</h4>
+
+                <hr style='border-top: 1px dashed var(--gold); margin: 1rem 0;'>
+
+                <h4 style='color: var(--teal);'>Vice Chair 1: Stelios Ramadanis</h4>
+                <div id='collapseStelios' class='collapse'>
+                    <p>I'm Stelios Ramadanis, a first-year student at the first High School of Pylea. At the moment, I am a Pylea MUN Student Officer. I've previously served as a delegate at two Model UN conferences and have a keen interest in both history and international issues. I intend to use this experience to hone my abilities, help the conference succeed, and make new friends who are as passionate about global issues as I am. I'm excited to meet everyone and share my thoughts.</p>
+                </div>
+                <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseStelios' aria-expanded='false' aria-controls='collapseStelios'>
+                    [Show Bio]
+                </button>
+              ">
+        UN Environment Programme
+      </button>
+
+      <button class="role-btn"
+              data-committee="Security Council"
+              data-img1="stoltidis.jpg"
+              data-img2="markadas.jpg"
+              data-img3="images/vice2-placeholder.png"
+              data-info="
+                <h4 style='color: var(--teal);'>Chair: Miltiadis Stoltidis</h4>
+                <h4 style='color: var(--teal);'>Vice Chair 1: Ioannis Markadas</h4>
+                <h4 style='color: var(--teal);'>Vice Chair 2: (to be announced after 26-10-2025)</h4>
+                
+                <hr style='border-top: 1px dashed var(--gold); margin: 1rem 0;'>
+
+                <h4 style='color: var(--teal);'>Chair: Miltiadis Stoltidis</h4>
+                <div id='collapseMiltiadis' class='collapse'>
+                    <p>I am **Miltiadis Stoltidis**, a student at the German School of Thessaloniki. I am wholeheartedly committed to fostering constructive dialogue, international cooperation, and cross-cultural understanding. Moreover, I believe in the power of discussion to bridge divides, inspire empathy, and create meaningful, collaborative solutions to complex global challenges. Through my engagement with Model United Nations, I have developed a perspective that sees diplomacy not just as negotiation, but as a tool to promote mutual respect, understanding, and progress. I aspire to contribute to a world guided by communication, collaboration, and shared responsibility for a better future.</p>
+                </div>
+                <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseMiltiadis' aria-expanded='false' aria-controls='collapseMiltiadis'>
+                    [Show Bio]
+                </button>
+
+                <hr style='border-top: 1px dashed var(--gold); margin: 1rem 0;'>
+
+                <h4 style='color: var(--teal);'>Vice Chair 1: Ioannis Markadas</h4>
+                <div id='collapseIoannisMarkadas' class='collapse'>
+                    <p>My name is **Ioannis Markadas**, I am 15 years old, and I come from Thessaloniki, Greece. I am currently a student at the First General High School of Pylaia. Over the years, I have taken part in several Model United Nations conferences, serving in various roles as both a delegate and a chair. This year, I am deeply honored to serve as a Vice Chair in the Security Council. My experience within the Council has been truly transformative, refining my debating abilities and strengthening my chairing skills. At Pylea MUN 2026, I aspire to uphold the enduring spirit of dialogue, encourage genuine diplomacy, and inspire meaningful and well-rounded discussions. Let us allow diplomacy to bring us together as we seek solutions to today’s global challenges. I eagerly look forward to meeting everyone and creating unforgettable moments together!</p>
+                </div>
+                <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseIoannisMarkadas' aria-expanded='false' aria-controls='collapseIoannisMarkadas'>
+                    [Show Bio]
+                </button>
+              ">
+        Security Council
+      </button>
+
+      <button class="role-btn"
+              data-committee="Economic and Social Council"
+              data-img1="chair3.png"
+              data-img2="triantafyllou.jpeg"
+              data-img3="vice2_esc.png"
+              data-info="
+                <h4 style='color: var(--teal);'>Chair: Grace Lee</h4>
+                <h4 style='color: var(--teal);'>Vice Chair 1: Angelos Triantafyllou</h4>
+                <h4 style='color: var(--teal);'>Vice Chair 2: Irene Chen</h4>
+                <div id='collapseEcosoc' class='collapse'>
+                    <p>Grace and Irene are dedicated to fostering constructive debate on global economic and social issues. Angelos brings a focus on business strategy, finance, and innovation.</p>
+                </div>
+                
+                <hr style='border-top: 1px dashed var(--gold); margin: 1rem 0;'>
+                
+                <h4 style='color: var(--teal);'>Vice Chair 1: Angelos Triantafyllou</h4>
+                <div id='collapseAngelos' class='collapse'>
+                    <p>Angelos Triantafyllou, 17, is a student at the Experimental Senior High School of the University of Macedonia, actively engaged in business strategy, finance, technology, and innovation. He has served as Deputy CEO & Business Navigator at LoopLab, a student-founded startup, as well as a Management Trainee at the Porsche Center Thessaloniki of the Motodynamics Group. He is currently a member of the Greek NewSpace Society and has been part of the National Robotics Team. Angelos has been recognized with the PMIEF Best Application of Project Management Award and other honors for innovation and leadership. He is distinguished by his strategic thinking, organizational skills, and commitment to excellence.</p>
+                </div>
+                <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseAngelos' aria-expanded='false' aria-controls='collapseAngelos'>
+                    [Show Bio]
+                </button>
+              ">
+        Economic and Social Council
+      </button>
+      
+      <button class="role-btn"
+              data-committee="UNESCO"
+              data-img1="stoltidou.jpg"
+              data-img2="angelaki.jpg"
+              data-img3="images/vice2-placeholder.png"
+              data-info="
+                <h4 style='color: var(--teal);'>Chair: Nikoleta Stoltidou</h4>
+                <h4 style='color: var(--teal);'>Co-Chair: Sofia Angelaki-Mertzemeki</h4>
+                <h4 style='color: var(--teal);'>Vice Chair: (to be announced)</h4>
+                
+                <hr style='border-top: 1px dashed var(--gold); margin: 1rem 0;'>
+
+                <h4 style='color: var(--teal);'>Chair: Nikoleta Stoltidou</h4>
+                <div id='collapseNikoleta' class='collapse'>
+                    <p>My name is **Nikoleta Stoltidou** and I am a tenth grader at the German School of Thessaloniki. This year I have the honour of serving as a Chair at the first PyleaMUN’s UNESCO committee. I am a highly creative and passionate individual and have throughout my participation in MUN conferences both in Greece and abroad come to appreciate what MUN truly stands for, meaning diplomacy, collaboration, compromise, critical thinking and above all respect. These key-principles are exactly what I aspire to pass onto the delegates of PyleaMUN! I am certain it is going to be a conference full of lively debates and innovative ideas and can not wait for it to arrive!</p>
+                </div>
+                <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseNikoleta' aria-expanded='false' aria-controls='collapseNikoleta'>
+                    [Show Bio]
+                </button>
+                
+                <hr style='border-top: 1px dashed var(--gold); margin: 1rem 0;'>
+                
+                <h4 style='color: var(--teal);'>Co-Chair: Sofia Angelaki-Mertzemeki</h4>
+                <div id='collapseSofia' class='collapse'>
+                    <p>My name is Sofia Angelaki-Mertzemeki. I am 17 years old, currently in my senior year and was born and raised in Katerini. During high school, I have participated in both MUN and European Youth Parliament programs, while through the latter, I was selected to be a delegate in the 102nd Turku International Session, held for 10 days in Finland this summer. There, brought together with students from across Europe, I realized how enriching such programs are, fostering an intercultural perspective. I am looking forward to meeting all delegates of UNESCO and confident that the first PyleaMUN conference will be a successful and inspiring event for all.</p>
+                </div>
+                <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseSofia' aria-expanded='false' aria-controls='collapseSofia'>
+                    [Show Bio]
+                </button>
+              ">
+        UNESCO
+      </button>
+
+      <button class="role-btn"
+              data-committee="NATO"
+              data-img1="bletsas.jpeg"
+              data-img2="images/vice1-placeholder.png"
+              data-img3="images/vice2-placeholder.png"
+              data-info="
+                <h4 style='color: var(--teal);'>Chair: Evangelos Bletsas</h4>
+                <h4 style='color: var(--teal);'>Vice Chair 1: (to be announced after 26-10-2025)</h4>
+                <h4 style='color: var(--teal);'>Vice Chair 2: (to be announced after 26-10-2025)</h4>
+
+                <hr style='border-top: 1px dashed var(--gold); margin: 1rem 0;'>
+                
+                <h4 style='color: var(--teal);'>Chair: Evangelos Bletsas</h4>
+                <div id='collapseEvangelosBletsas' class='collapse'>
+                    <p>My name is **Vaggelis Bletsas**, and I am a student of Arsakeio Lyceum Thessaloniki's. I started my MUN journey 3 years ago not knowing that it will become one of my most valuable and enjoyable experiences. Throughout my MUN career, I have been privileged to represent a variety of countries in committees such as GA4, GA6, and GA1. Each conference has improved my cooperation skills, my public speaking capabilities, and stress control. I was also truly fortunate to participate in MUNS both in my native country and abroad, which has allowed me to make friendships with students from different countries and backgrounds and experience other cultures.</p>
+                    <p>As a chair, my ambition for the PyleaMUN NATO committee is to foster the same love for MUNS in my delegates as I had my first time participating. In addition, I wish to create a respectful environment in which every delegate feels confident in participating. I aspire to guide the delegates and ensure that our committee is productive and enjoyable for all.</p>
+                </div>
+                <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseEvangelosBletsas' aria-expanded='false' aria-controls='collapseEvangelosBletsas'>
+                    [Show Bio]
+                </button>
+              ">
+        NATO
+      </button>
+
+      <button class="role-btn"
+              data-committee="World Health Organisation"
+              data-img1="konstantou.jpg"
+              data-img2="pupa.jpg"
+              data-img3="images/vice2-placeholder.png"
+              data-info="
+                <h4 style='color: var(--teal);'>Chair: Panagiota Konstantou</h4>
+                <h4 style='color: var(--teal);'>Vice Chair 1: Anna - Maria Della Puppa</h4>
+                <h4 style='color: var(--teal);'>Vice Chair 2: (to be announced after 26-10-2025)</h4>
+                
+                <hr style='border-top: 1px dashed var(--gold); margin: 1rem 0;'>
+
+                <h4 style='color: var(--teal);'>Chair: Panagiota Konstantou</h4>
+                <div id='collapsePanagiota' class='collapse'>
+                    <p>My name is <strong>Panagiota Konstantou</strong>, I am 17 years old and it is my outmost honor to serve as the Chair of the WHO Committee for the 1st PyleaMUN. Through two years of active participation in MUN conferences during High School, I have developed deep passion for diplomacy and broadened my knowledge in international relations and global affairs. Believing in the art of debate, I look forward to fostering meaningful discussions and maintaining a dynamic flow of ideas and solutions, ensuring a memorable and enriching experience for everyone.</p>
+                </div>
+                <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapsePanagiota' aria-expanded='false' aria-controls='collapsePanagiota'>
+                    [Show Bio]
+                </button>
+
+                <hr style='border-top: 1px dashed var(--gold); margin: 1rem 0;'>
+                
+                <h4 style='color: var(--teal);'>Vice Chair 1: Anna - Maria Della Puppa</h4>
+                <div id='collapseAnnaMaria' class='collapse'>
+                    <p>My name is **Anna Maria Della Puppa**, I am 16 years old. I go to the 1st Model Experimental High school of Thessaloniki and wish to study medicine in the future. In my leisure time, I like listening to music and hang out with family and friends. l also used to practice ballet but unfortunately got injured. MUN conferences have been my passion since last year as I attended as the delegate of Singapore. I find these kind of conferences intriguing and worth-attending.</p>
+                </div>
+                <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseAnnaMaria' aria-expanded='false' aria-controls='collapseAnnaMaria'>
+                    [Show Bio]
+                </button>
+              ">
+        World Health Organisation
+      </button>
+
+      <button class="role-btn"
+              data-committee="Human Rights Council"
+              data-img1="zarogianni.jpg"
+              data-img2="mavromati.jpeg"
+              data-img3="images/vice2-placeholder.png"
+              data-info="
+                <h4 style='color: var(--teal);'>Chair: Ioanna Zarogianni</h4>
+                <h4 style='color: var(--teal);'>Co-Chair: Maria Eleonora Mavrommati</h4>
+                <h4 style='color: var(--teal);'>Vice Chair 2: (to be announced after 26-10-2025)</h4>
+                
+                <hr style='border-top: 1px dashed var(--gold); margin: 1rem 0;'>
+
+                <h4 style='color: var(--teal);'>Chair: Ioanna Zarogianni</h4>
+                <div id='collapseIoanna' class='collapse'>
+                    <p>I am Ioanna, a 10th-grade student at the 1st High School of Pylaia. Having participated in four MUN conferences, the diplomacy, teamwork, and inspiration that characterize the Model United Nations experience have captivated me. Now stepping into the role of Chair for the first time, I am eager to guide debates with enthusiasm, fairness, and respect. Serving as HRC Chair, I’m truly honored to join the Board and discuss “Protecting the Rights of Children and Adolescents in Gaza,” while fostering collaboration, open-mindedness, and the unifying spirit of the UN. I am genuinely looking forward to meeting every delegate in person.</p>
+                </div>
+                <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseIoanna' aria-expanded='false' aria-controls='collapseIoanna'>
+                    [Show Bio]
+                </button>
+                
+                <hr style='border-top: 1px dashed var(--gold); margin: 1rem 0;'>
+                
+                <h4 style='color: var(--teal);'>Co-Chair: Maria Eleonora Mavrommati</h4>
+                <div id='collapseMariaEleonora' class='collapse'>
+                    <p>My name is **Maria Eleonora Mavrommati**, and I am currently a tenth grade student at the American Farm School of Thessaloniki. Since I was little, I have always been fascinated by the humanities so starting extra-curricular activities such as speech and debate, but mostly MUN was the natural path for me. Serving as a Co-Chair in PyleaMUN’s Human Rights Council is both an outmost honour but also something I view as a reflection of my admiration for diplomacy. My MUN journey started when I was in the ninth grade, and ever since I’ve fallen in love with it. Along the way, I have been humbled to receive awards such as the Best Delegate in the 7th DSTMUN Security Council, but above that, I’ve gained experiences through lovely conferences, and I strive to create such an engaging and respectful environment with fruitful discussions when serving in the HRC committee.</p>
+                </div>
+                <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseMariaEleonora' aria-expanded='false' aria-controls='collapseMariaEleonora'>
+                    [Show Bio]
+                </button>
+              ">
+        Human Rights Council
+      </button>
+
+      <button class="role-btn"
+              data-committee="UN Women"
+              data-img1="karali.jpeg"
+              data-img2="mastrokosta.PNG"
+              data-img3="images/vice2-placeholder.png"
+              data-info="
+                <h4 style='color: var(--teal);'>Chair: Paraskevi Karali</h4>
+                <h4 style='color: var(--teal);'>Vice Chair 1: Danai Mastrokosta</h4>
+                <h4 style='color: var(--teal);'>Vice Chair 2: (to be announced after 26-10-2025)</h4>
+                
+                <hr style='border-top: 1px dashed var(--gold); margin: 1rem 0;'>
+                
+                <h4 style='color: var(--teal);'>Chair: Paraskevi Karali</h4>
+                <div id='collapseParaskevi' class='collapse'>
+                    <p>My name is Karali Paraskevi, and I am a student at Arsakeio High School of Thessaloniki. I am truly honored to serve as a Chair in UN Women. My MUN journey began two years ago at a conference in Patra, and since then, it has become an integral part of who I am. This will be my seventh conference and my second time chairing. Looking back on my very first experience as a delegate and seeing how far I’ve come is truly mesmerizing. I feel incredibly blessed and excited to help all delegates cultivate their passion for politics and international affairs — just as I have over the years. I wish you all an amazing and unforgettable conference!</p>
+                </div>
+                <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseParaskevi' aria-expanded='false' aria-controls='collapseParaskevi'>
+                    [Show Bio]
+                </button>
+                
+                <hr style='border-top: 1px dashed var(--gold); margin: 1rem 0;'>
+                
+                <h4 style='color: var(--teal);'>Vice Chair 1: Danai Mastrokosta</h4>
+                <div id='collapseDanai' class='collapse'>
+                    <p>My name is **Danai Mastrokosta**, I am a 10th grader at the American Farm School High School and truly honoured to serve as Vice Chair in UN WOMEN. Having participated in multiple MUN’s, and having gained experience about diplomacy, I am willing to help and include all delegates in the committee. This will be my first time chairing, but I am looking forward to collaborating with each and every one of you to make this experience one of a lifetime!</p>
+                </div>
+                <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseDanai' aria-expanded='false' aria-controls='collapseDanai'>
+                    [Show Bio]
+                </button>
+              ">
+        UN Women
+      </button>
+
+      <button class="role-btn"
+              data-committee="Historical Crisis Committee"
+              data-img1="images/chair-placeholder.png"
+              data-img2="dep_sec.png"
+              data-img3="dep_ga.jpg"
+              data-info="
+                <h4 style='color: var(--teal);'>Chair: (to be announced)</h4>
+                
+                <hr style='border-top: 1px dashed var(--gold); margin: 1rem 0;'>
+                
+                <h4 style='color: var(--teal);'>Vice Chair 1: Nikolaos Pavlidis Charalampidis</h4>
+                <div id='collapseNikolaosCrisis' class='collapse'>
+                    <p><strong>Contact:</strong> nkspvlds2009@gmail.com</p>
+                    <p>I am <strong>Nikolaos Pavlidis Charalampidis</strong>, a 17-year-old student at the 1st Senior High School of Pylea. It is my utmost honour to serve as Deputy Secretary General for the 1st PyleaMUN. I have been participating in various MUN conferences for three years as both delegate and chair. As a young advocate, I am passionate about engaging and empowering my generation; I believe MUN conferences are vital for exploring and forging sustainable solutions. I look forward to collaborating with all participants to make this MUN a successful and unforgettable experience.</p>
+                </div>
+                <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseNikolaosCrisis' aria-expanded='false' aria-controls='collapseNikolaosCrisis'>
+                    [Show Bio]
+                </button>
+                
+                <hr style='border-top: 1px dashed var(--gold); margin: 1rem 0;'>
+                
+                <h4 style='color: var(--teal);'>Vice Chair 2: Sofia Sougari</h4>
+                <div id='collapseSofiaCrisis' class='collapse'>
+                    <p><strong>Contact:</strong>sougarisofia@gmail.com</p>
+                    <p>My name is <strong>Sofia Sougari</strong>, I am 16 years old and I am honoured to serve as Deputy President of the GA for PyleaMUN. Driven by my passion for diplomacy I have debated and chaired  in multiple MUNs. As a major advocate of teamwork I look forward to working closely with chairs and delegates to ensure a successful, fun, and unforgettable conference for all. </p>
+                </div>
+                <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseSofiaCrisis' aria-expanded='false' aria-controls='collapseSofiaCrisis'>
+                    [Show Bio]
+                </button>
+              ">
+        Historical Crisis Committee
+      </button>
+      
+<div class="section">
+  <h2>The Staff</h2>
+  <button class="role-btn"
+          data-role="Head of Staff"
+          data-img="head_staff_eleni.jpg"
+          data-info="<p>Hello MUN family! I am <strong>Eleni Proestou</strong>. As the Head of Staff this year, I'm here to ensure everyone feels welcome and supported throughout our journey together. With a passion for creating positive team environments and solving challenges with a smile, I'm committed to making this experience amazing for all of us. Always available for questions, quick chats, or whatever you need – let's make this MUN memorable! Looking forward to connecting with each of you! </p>">
+    Head of Staff
+  </button>
+  <button class="role-btn"
+          data-role="Committee Staff Members"
+          data-img="staff.png"
+          data-info="<p>…</p>">
+    Committee Staff Members
+  </button>
+</div>
+    <div class="section">
+  <h2>The Press</h2>
+  
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+
+    <div class="col">
+      <button class="role-btn small-role-btn"
+              data-name="Antigoni Klironomou"
+              data-role="Press Member"
+              data-img="press_klironomou.jpg"
+              data-info="<p><strong>Press Member:</strong> I am Antigoni Klironomou, I am 15 years old and I have been participating in MUNS for the past two years. It has truly been the best experience of my life. MUN has helped me broaden my horizons and think out of the box. Joining PyleaMUN's Press team will let me follow my passion for writing and photography. I am responsible, creative, deeply passionate, cooperative, and ready to give my best self.</p>">
+        Antigoni Klironomou
+      </button>
     </div>
 
-    <div class="modal fade" id="modalAgenda" tabindex="-1" aria-labelledby="labelAgenda" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="labelAgenda">Committee Agendas</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <ul>
-                        <li><strong>United Nations General Assembly (UNGA)</strong><br>
-                            At PyleaMUN, delegates from all committees participate in a General Assembly on the last conference day (Saturday 24 January). Delegations will be headed by their respective ambassadors. Within each delegation, there should be only one acting delegate at any given time. This duty can be left entirely to the country’s ambassador or rotated depending on the delegation’s preferences. The country’s placard should be held and raised when required only by the acting delegate (more info will be made available in the Delegate Handbook).<br>
-                            The topic debated by the Assembly is “<strong>Human Rights or Cultural Relativism: Can Universal Norms Truly Exist? Are international human rights genuinely universal, or do they impose Western values on diverse cultures?</strong>” The PyleaMUN Secretariat’s study guide will be published and made available at the same place as the other guides.
-                        </li>
-                        <li><strong>UN Environment Programme (UNEP)</strong><br>
-                            Balancing Ecotourism and Conservation in UNESCO Heritage Sites – Designing sustainable tourism models that preserve cultural landmarks while fueling local economies.
-                        </li>
-                        <li><strong>Security Council</strong><br>
-                            Combatting Illicit Small Arms Trade – Developing international frameworks for awareness campaigns, policy proposals, and community outreach to curb the flow of illegal firearms and light weapons.
-                        </li>
-                        <li><strong>Economic and Social Council (ECOSOC)</strong><br>
-                            Sustainable Entrepreneurship: Youth in the Green Economy – Proposing incentives and capacity-building for student-led start-ups in renewable energy, circular design, and low-carbon tech.
-                        </li>
-                        <li><strong>UNESCO</strong><br>
-                            Bridging the Digital Divide in Education – Ensuring equitable access to e-learning and digital tools for students in underserved urban and rural areas.
-                        </li>
-                        <li><strong>NATO</strong><br>
-                            Reassessing NATO's Strategic Autonomy Amid U.S. Unpredictability – Debating the need for European strategic autonomy and defense integration in light of fluctuating U.S. commitments and rhetoric questioning NATO's relevance.
-                        </li>
-                        <li><strong>World Health Organisation (WHO)</strong><br>
-                            Adolescent Mental Health: A Global Crisis – Formulating youth-centered strategies for schools and online platforms to provide early support and destigmatize care.
-                        </li>
-                        <li><strong>Human Rights Council (HRC)</strong><br>
-                            Protecting the Rights of Children and Adolescents in Gaza – Crafting resolutions to ensure that youth in Gaza have access to education, healthcare, and protection from violence despite ongoing hostilities and restrictions on movement.
-                        </li>
-                        <li><strong>UN Women</strong><br>
-                            Preventing Gender-Based Violence – Establishing international guidelines for safe reporting mechanisms and prevention education.
-                        </li>
-                        <li><strong>Historical Crisis Committee (HCC):</strong> The Congress of Corinth, 337 BCE</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+    <div class="col">
+      <button class="role-btn small-role-btn"
+              data-name="Eva Maridou"
+              data-role="Press Member"
+              data-img="images/press_maridou_placeholder.png"
+              data-info="<p><strong>Press Member:</strong> Eva Maridou is a skilled interviewer and manages the delegate spotlight series during the conference.</p>">
+        (to be announced)
+      </button>
     </div>
 
-    <section id="register" class="container py-4 text-center"> <h2 class="section-title">Registration</h2>
-        <p>Secure your spot at PyleaMUN 2026 by registering today.</p>
-        <a href="https://pyleamun.github.io/registration2026/" target="_blank" class="btn btn-success btn-lg">Register Here</a>
-    </section>
-
-    <div class="modal fade" id="modalFees" tabindex="-1" aria-labelledby="labelFees" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="labelFees">Participation Fees</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body fs-5">
-                    <ul class="list-unstyled">
-                        <li><strong>Individual Delegate Fee:</strong> No charge! Thanks to the generosity of the people who embraced our effort, the PyleaMUN Organizing Committee is happy and proud to announce that we are now the only MUN Conference with no Participation Fees for all students!</li>
-                        <li><strong>School Fee:</strong> No charge</li>
-                        <li><strong>Student Officers:</strong> No charge</li>
-                    </ul>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
+    <div class="col">
+      <button class="role-btn small-role-btn"
+              data-name="Nikos Anagnostou"
+              data-role="Press Member"
+              data-img="images/press_anagnostou_placeholder.png"
+              data-info="<p><strong>Press Member:</strong> Nikos Anagnostou manages the daily bulletin and contributes to editorial planning for MUN coverage.</p>">
+        (to be announced)
+      </button>
     </div>
 
-    <section id="contact" class="container py-4 text-center"> <h2 class="section-title">Contact Us</h2>
-        <p>Questions? Reach out at <a href="mailto:pyleamun@gmail.com">pyleamun@gmail.com</a>.</p>
-        <p>Send registration material to: <a href="mailto:pyleamun.reg@gmail.com">pyleamun.reg@gmail.com</a></p>
-        <p>📞 Phone: <a href="tel:+302310329199">+30 2310 329199</a></p>
-    </section>
+    <div class="col">
+      <button class="role-btn small-role-btn"
+              data-name="Irene Papakonstantinou"
+              data-role="Press Member"
+              data-img="images/press_irene_placeholder.png"
+              data-info="<p><strong>Press Member:</strong> Irene Papakonstantinou is responsible for social media updates and creative engagement with the audience during sessions.</p>">
+        (to be announced)
+      </button>
+    </div>
 
-    <footer class="text-center py-4">
-        <div class="container">
-            <p>&copy; 2026 PyleaMUN/Panagiotis Domvros. All rights reserved.</p>
-            <div class="social-icons mt-3">
-                <a href="https://www.facebook.com/profile.php?id=61576037017049" target="_blank" class="social-icon">
-                    <i class="fab fa-facebook"></i>
-                </a>
-                <a href="https://www.instagram.com/pyleamun?igsh=MWFwdW93NTAyZWo2aA==" target="_blank" class="social-icon">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="https://www.tiktok.com/@pyleamun26?_t=ZN-8wJM0Zm2WjW&_r=1" target="_blank" class="social-icon">
-                    <i class="fab fa-tiktok"></i>
-                </a>
-            </div>
-        </div>
-    </footer>
+    <div class="col">
+      <button class="role-btn small-role-btn"
+              data-name="Sotiris Venizelos"
+              data-role="Press Member"
+              data-img="images/press_venizelos_placeholder.png"
+              data-info="<p><strong>Press Member:</strong> Sotiris Venizelos reports on committee developments and writes feature articles for the conference blog.</p>">
+        (to be announced)
+      </button>
+    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        const deadline = new Date('January 22, 2026 08:00:00').getTime();
-        const timerInterval = setInterval(updateCountdown, 1000);
+    <div class="col">
+      <button class="role-btn small-role-btn"
+              data-name="Zoe Nikopoulou"
+              data-role="Press Member"
+              data-img="images/press_zoe_placeholder.png"
+              data-info="<p><strong>Press Member:</strong> Zoe Nikopoulou designs the layout and visual identity of the final conference magazine.</p>">
+        (to be announced)
+      </button>
+    </div>
 
-        function updateCountdown() {
-            const now = Date.now();
-            const t = deadline - now;
-            
-            if (t <= 0) {
-                clearInterval(timerInterval);
-                const countdownSection = document.getElementById('countdown-section');
-                if (countdownSection) {
-                    countdownSection.innerHTML = "<div class='container py-5'><p class='fs-4 text-success'>The Conference has started!</p></div>";
-                }
-                return;
+    <div class="col">
+      <button class="role-btn small-role-btn"
+              data-name="Thanos Markopoulos"
+              data-role="Press Member"
+              data-img="images/press_thanos_placeholder.png"
+              data-info="<p><strong>Press Member:</strong> Thanos Markopoulos is a talented videographer responsible for daily highlight reels and post-conference documentation.</p>">
+        (to be announced)
+      </button>
+    </div>
+
+  </div>
+</div>
+
+      </div>
+
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-box">
+      <button class="close-btn" id="closeModal">&times;</button>
+      <div class="modal-gallery" id="modalGallery" style="display:none;"></div>
+      <div class="modal-single" id="modalSingle" style="display:none;"></div>
+      <h3 id="modalName"></h3>
+      <p id="modalRole"></p>
+      <div id="modalInfo"></div>
+    </div>
+  </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const btns = document.querySelectorAll('.role-btn');
+    const overlay = document.getElementById('modalOverlay');
+    const gallery = document.getElementById('modalGallery');
+    const single = document.getElementById('modalSingle');
+    const nameEl = document.getElementById('modalName');
+    const roleEl = document.getElementById('modalRole');
+    const infoEl = document.getElementById('modalInfo');
+    const closeBtn = document.getElementById('closeModal');
+    const body = document.body; 
+
+    // Function to update the text of the collapse toggle button
+    function updateToggleText(toggle) {
+        const targetId = toggle.getAttribute('data-bs-target').substring(1);
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+            const isExpanded = targetElement.classList.contains('show');
+            toggle.textContent = isExpanded ? '[Hide Bio]' : '[Show Bio]';
+        }
+    }
+
+    // Observer to handle toggles being inserted into the modal
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            // Check if content was added to modalInfo and the modal is active
+            if (mutation.target.id === 'modalInfo' && overlay.classList.contains('active')) {
+                const toggles = infoEl.querySelectorAll('.collapse-toggle');
+                toggles.forEach(toggle => {
+                    const targetId = toggle.getAttribute('data-bs-target').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        // Initialize text state (collapsibles start closed by default)
+                        targetElement.classList.remove('show');
+                        updateToggleText(toggle);
+
+                        // Add event listeners to update text on toggle
+                        targetElement.addEventListener('shown.bs.collapse', () => {
+                            updateToggleText(toggle);
+                        });
+                        targetElement.addEventListener('hidden.bs.collapse', () => {
+                            updateToggleText(toggle);
+                        });
+                    }
+                });
             }
+        });
+    });
 
-            const days = Math.floor(t / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((t % (1000 * 60)) / 1000);
+    observer.observe(infoEl, { childList: true, subtree: true });
 
-            const daysEl = document.getElementById('days');
-            const hoursEl = document.getElementById('hours');
-            const minutesEl = document.getElementById('minutes');
-            const secondsEl = document.getElementById('seconds');
 
-            if (daysEl) daysEl.textContent = days;
-            if (hoursEl) hoursEl.textContent = hours;
-            if (minutesEl) minutesEl.textContent = minutes;
-            if (secondsEl) secondsEl.textContent = seconds;
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Reset modal content
+        gallery.innerHTML = '';
+        single.innerHTML = '';
+        gallery.style.display = 'none';
+        single.style.display = 'none';
+
+        nameEl.textContent = btn.dataset.name || btn.dataset.committee || btn.dataset.role || '';
+        roleEl.textContent = btn.dataset.role || btn.dataset.committee || '';
+        infoEl.innerHTML = btn.dataset.info || '';
+
+        // Handle images
+        if (btn.dataset.img1) {
+          gallery.style.display = 'flex';
+          gallery.style.justifyContent = 'center';
+          gallery.style.flexWrap = 'wrap';
+          gallery.style.gap = '0.5rem';
+          
+          const images = [];
+          
+          // Only iterate up to 2 for the supervisors now, but keep 4 for Financial Oversight Team
+          let maxImages = 2;
+          if (btn.dataset.name === "Financial Oversight Team") {
+              maxImages = 4;
+          } else if (btn.dataset.committee && btn.dataset.img3) {
+              // Ensure committees with 3 roles still show 3
+              maxImages = 3; 
+          }
+
+
+          for (let i = 1; i <= maxImages; i++) {
+            if (btn.dataset[`img${i}`]) {
+              images.push(btn.dataset[`img${i}`]);
+            }
+          }
+          
+          images.forEach(imgSrc => {
+            const img = new Image();
+            img.src = imgSrc;
+            img.onerror = () => {
+                // Keep placeholder image logic for missing files
+                if (imgSrc.startsWith('images/') && !imgSrc.includes('placeholder')) {
+                    img.src = imgSrc; 
+                } else if (!imgSrc.includes('placeholder')) {
+                    img.src = 'default-profile.png';
+                } else {
+                    img.src = imgSrc;
+                }
+            };
+            // Inline styling matching the CSS rules
+            img.style.objectFit = 'cover';
+            img.style.width = '120px';
+            img.style.height = '120px';
+            img.style.borderRadius = '50%';
+            img.style.border = '3px solid var(--gold)';
+            img.style.margin = '0 0.5rem';
+            
+            gallery.appendChild(img);
+          });
+        } else {
+          single.style.display = 'flex';
+          const img = new Image();
+          img.src = btn.dataset.img;
+          img.onerror = () => img.src = 'default-profile.png';
+          img.className = 'modal-single-img';
+          single.appendChild(img);
         }
 
-        updateCountdown(); 
-    </script>
+        // Display modal and lock background scrolling
+        overlay.classList.add('active');
+        body.classList.add('modal-open'); 
+      });
+    });
+
+    function closeModal() {
+      overlay.classList.remove('active');
+      body.classList.remove('modal-open'); 
+    }
+    closeBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', e => e.target === overlay && closeModal());
+    document.addEventListener('keydown', e => e.key === 'Escape' && closeModal());
+  });
+</script>
 </body>
 </html>
