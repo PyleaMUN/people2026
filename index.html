@@ -482,17 +482,24 @@
 
       <button class="role-btn"
               data-committee="Economic and Social Council"
-              data-img1="chair3.png"
+              data-img1="kaimakamis.jpg"
               data-img2="triantafyllou.jpeg"
               data-img3="vice2_esc.png"
               data-info="
-                <h4 style='color: var(--teal);'>Chair: Grace Lee</h4>
+                <h4 style='color: var(--teal);'>Chair: Konstantinos Kaimakamis</h4>
                 <h4 style='color: var(--teal);'>Vice Chair 1: Angelos Triantafyllou</h4>
                 <h4 style='color: var(--teal);'>Vice Chair 2: Irene Chen</h4>
-                <div id='collapseEcosoc' class='collapse'>
-                    <p>Grace and Irene are dedicated to fostering constructive debate on global economic and social issues. Angelos brings a focus on business strategy, finance, and innovation.</p>
-                </div>
                 
+                <hr style='border-top: 1px dashed var(--gold); margin: 1rem 0;'>
+
+                <h4 style='color: var(--teal);'>Chair: Konstantinos Kaimakamis</h4>
+                <div id='collapseKonstantinosKaimakamis' class='collapse'>
+                    <p>My name is <strong>Konstantinos Kaimakamis</strong>, I am 17 years old and I attend the 1st Model High School of Thessaloniki. I love MUNs and view them as an opportunity to meet people and prepare in order to actually change the world. My personal dream is to study neuroscience and become a researcher and neurologist. My passions include Formula 1 and sports of all kinds, as well as learning about our world and its history.</p>
+                </div>
+                <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseKonstantinosKaimakamis' aria-expanded='false' aria-controls='collapseKonstantinosKaimakamis'>
+                    [Show Bio]
+                </button>
+
                 <hr style='border-top: 1px dashed var(--gold); margin: 1rem 0;'>
                 
                 <h4 style='color: var(--teal);'>Vice Chair 1: Angelos Triantafyllou</h4>
@@ -500,6 +507,16 @@
                     <p><strong>Angelos Triantafyllou</strong>, 17, is a student at the Experimental Senior High School of the University of Macedonia, actively engaged in business strategy, finance, technology, and innovation. He has served as <strong>Deputy CEO & Business Navigator</strong> at LoopLab, a student-founded startup, as well as a <strong>Management Trainee</strong> at the Porsche Center Thessaloniki of the Motodynamics Group. He is currently a member of the Greek NewSpace Society and has has been part of the National Robotics Team. Angelos has been recognized with the <strong>PMIEF Best Application of Project Management Award</strong> and other honors for innovation and leadership. He is distinguished by his strategic thinking, organizational skills, and commitment to excellence.</p>
                 </div>
                 <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseAngelos' aria-expanded='false' aria-controls='collapseAngelos'>
+                    [Show Bio]
+                </button>
+
+                <hr style='border-top: 1px dashed var(--gold); margin: 1rem 0;'>
+                
+                <h4 style='color: var(--teal);'>Vice Chair 2: Irene Chen</h4>
+                <div id='collapseIrene' class='collapse'>
+                    <p>Grace and Irene are dedicated to fostering constructive debate on global economic and social issues. Angelos brings a focus on business strategy, finance, and innovation.</p>
+                </div>
+                <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseIrene' aria-expanded='false' aria-controls='collapseIrene'>
                     [Show Bio]
                 </button>
               ">
@@ -552,12 +569,12 @@
       <button class="role-btn"
               data-committee="NATO"
               data-img1="bletsas.jpeg"
-              data-img2="images/vice1-placeholder.png"
+              data-img2="tsitroudi.jpg"
               data-img3="images/vice2-placeholder.png"
               data-info="
                 <h4 style='color: var(--teal);'>Chair: Evangelos Bletsas</h4>
-                <h4 style='color: var(--teal);'>Vice Chair 1: (to be announced after 26-10-2025)</h4>
-                <h4 style='color: var(--teal);'>Vice Chair 2: (to be announced after 26-10-2025)</h4>
+                <h4 style='color: var(--teal);'>Co-Chair: Niki Tsitroudi</h4>
+                <h4 style='color: var(--teal);'>Vice Chair: (to be announced after 26-10-2025)</h4>
 
                 <hr style='border-top: 1px dashed var(--gold); margin: 1rem 0;'>
                 
@@ -567,6 +584,16 @@
                     <p>As a chair, my ambition for the PyleaMUN NATO committee is to foster the same love for MUNS in my delegates as I had my first time participating. In addition, I wish to create a respectful environment in which every delegate feels confident in participating. I aspire to guide the delegates and ensure that our committee is productive and enjoyable for all.</p>
                 </div>
                 <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseEvangelosBletsas' aria-expanded='false' aria-controls='collapseEvangelosBletsas'>
+                    [Show Bio]
+                </button>
+
+                <hr style='border-top: 1px dashed var(--gold); margin: 1rem 0;'>
+                
+                <h4 style='color: var(--teal);'>Co-Chair: Niki Tsitroudi</h4>
+                <div id='collapseNikiTsitroudi' class='collapse'>
+                    <p>I am <strong>Niki Tsitroudi</strong>, an 11th grade student at the American Farm School of Thessaloniki, and I am beyond excited to serve as a Chair for the NATO committee. I look forward to facilitating fruitful and engaging debates throughout this year’s conference. My experience in various positions within MUN, has deepened my interest for diplomacy and policy-making, which has now culminated into an enthusiasm I am eager to share. As we reevaluate the relevance of NATO within a volatile global scene, my aim is to foster an inclusive environment, where every voice is valued, paving the way towards meaningful growth and collaboration.</p>
+                </div>
+                <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseNikiTsitroudi' aria-expanded='false' aria-controls='collapseNikiTsitroudi'>
                     [Show Bio]
                 </button>
               ">
@@ -845,7 +872,7 @@
                     const targetElement = document.getElementById(targetId);
                     
                     if (targetElement) {
-                        // FIX 1: Explicitly add 'collapse' and remove 'show' to ensure bios start hidden
+                        // FIX: Explicitly add 'collapse' and remove 'show' to ensure bios start hidden
                         targetElement.classList.add('collapse');
                         targetElement.classList.remove('show');
                         
