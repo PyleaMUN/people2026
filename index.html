@@ -251,8 +251,27 @@
   Technical Executive Advisor
 </button>
       <button class="role-btn" data-name="Stavros Tambouratzis" data-role="Staff Executive Supervisor" data-img="tambouratzis.png" data-info="<p>Stavros Tambouratzis oversees and coordinates the staff executives, ensuring alignment between executive decisions and staff execution.</p>">Staff Executive Supervisor</button>
+
+<button class="role-btn"
+        data-name="Medical Supervisors"
+        data-role="Medical Supervisors"
+        data-img1="images/medical_kakoulidou_placeholder.png"
+        data-img2="images/medical_marmagelou_placeholder.png"
+        data-info="
+            <p>The Medical Supervisors are responsible for the well-being and immediate first aid of all participants, ensuring a safe and secure conference environment.</p>
+            <hr style='border-top: 1px dashed var(--gold); margin: 1rem 0;'>
+            <h4 style='color: var(--teal);'>Kakoulidou Nina (Escort)</h4>
+            <h4 style='color: var(--teal);'>Marmagelou Theodora (Certified Nurse)</h4>
+            <div id='collapseMedical' class='collapse'>
+                <p>The medical team is on-site throughout the conference to provide emergency assistance, first aid, and general health support to all delegates and staff.</p>
+            </div>
+            <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseMedical' aria-expanded='false' aria-controls='collapseMedical'>
+                [Show Bio]
+            </button>
+        ">
+  Medical Supervisors
+</button>
 </div>
-      
     <div class="section">
       <h2>General Assembly Secretariat</h2>
 
@@ -742,8 +761,43 @@
   </button>
   <button class="role-btn"
           data-role="Committee Staff Members"
-          data-img="staff.png"
-          data-info="<p>…</p>">
+          data-img=""
+          data-info="
+    <p>The Committee Staff Members are essential for the smooth operation of all committees. Their duties include administrative support, coordination of materials, and facilitating communication between the chairs and the Secretariat.</p>
+    <hr style='border-top: 1px dashed var(--gold); margin: 1rem 0;'>
+    <p><strong>Staff Members (Alphabetical by Last Name):</strong></p>
+    <ul style='padding-left: 20px; list-style-type: disc; margin-top: 0.5rem;'>
+      <li>Axenopoulou, Chrysanthi (1st Junior Highschool of Pylea)</li>
+      <li>Babaratsas, Vasiliki (1st Junior Highschool of Pylea)</li>
+      <li>Balasa, Eleni (1st Junior Highschool of Pylea)</li>
+      <li>Bekiakis, Athanasios (1st Junior Highschool of Pylea)</li>
+      <li>Boulimiti, Maria (1st Senior Highschool of Pylea)</li>
+      <li>Chasapakis, Myrsini (1st Junior Highschool of Pylea)</li>
+      <li>Christodoulou, Ioakeim (1st Junior Highschool of Pylea)</li>
+      <li>Gougousis, Anastasia (1st Junior Highschool of Pylea)</li>
+      <li>Kanatas, Panagiota (1st Junior Highschool of Pylea)</li>
+      <li>Karagkiozi, Dafni (1st Senior Highschool of Pylea)</li>
+      <li>Kousta, Georgia (1st Junior Highschool of Pylea)</li>
+      <li>Mantela, Paraskevi (Arsakeio)</li>
+      <li>Moraiti, Eirini (1st Junior Highschool of Pylea)</li>
+      <li>Ormanoudis, Krinio-Rafailia (1st Senior Highschool of Pylea)</li>
+      <li>Panagiotidis, Maria-Anna (1st Junior Highschool of Pylea)</li>
+      <li>Papadopoulos, Faidra (1st Junior Highschool of Pylea)</li>
+      <li>Patras, Anastasios (1st Junior Highschool of Pylea)</li>
+      <li>Pavlidis, Elisavet (1st Senior Highschool of Pylea)</li>
+      <li>Pergaminelis, Anastasia (1st Junior Highschool of Pylea)</li>
+      <li>Poimenidis, Anastasia (1st Senior Highschool of Pylea)</li>
+      <li>Polyzos, Argyro (1st Senior Highschool of Pylea)</li>
+      <li>Sgouras, Anna (1st Junior Highschool of Pylea)</li>
+      <li>Symeonidou, Aikaterini (1st Junior Highschool of Pylea)</li>
+      <li>Tsagalidis, Ioanna-Eleni (1st Junior Highschool of Pylea)</li>
+      <li>Tsanidis, Georgios (1st Junior Highschool of Pylea)</li>
+      <li>Tsimpida, Amalia (1st Junior Highschool of Pylea)</li>
+      <li>Trontzios, Stylianos (1st Junior Highschool of Pylea)</li>
+      <li>Varvoutas, Sappho (1st Junior Highschool of Pylea)</li>
+      <li>Vlachopanagiotis, Maria (1st Junior Highschool of Pylea)</li>
+    </ul>
+  ">
     Committee Staff Members
   </button>
 </div>
@@ -923,6 +977,9 @@
           } else if (btn.dataset.committee && btn.dataset.img3) {
               // Ensure committees with 3 roles still show 3
               maxImages = 3; 
+          } else if (btn.dataset.name === "Medical Supervisors") {
+              // Ensure medical supervisors show 2 images
+              maxImages = 2;
           }
 
 
@@ -955,7 +1012,7 @@
             
             gallery.appendChild(img);
           });
-        } else {
+        } else if (btn.dataset.img && btn.dataset.img !== "") {
           single.style.display = 'flex';
           const img = new Image();
           img.src = btn.dataset.img;
