@@ -9,12 +9,18 @@
   <style>
     :root { --nav-bg:#f8f8f0; --teal:#006d7a; --gold:#c59d12; --cream:#f8f5ec; --text-dark:#333; }
     body { margin:0; padding-top:56px; font-family:'Lato',sans-serif; background:var(--cream); color:var(--text-dark); }
-    /* FIX: Ensure the background page cannot scroll when the modal is open */
+    
+    /* FIX: The 'position: fixed' rule was causing the page to jump to the top 
+      when the modal was closed. Removing it and leaving only 'overflow: hidden' 
+      prevents background scrolling *and* maintains the scroll position.
+    */
     body.modal-open { 
         overflow: hidden !important; 
+        /* REMOVED THE FOLLOWING LINES:
         position: fixed; 
         width: 100%;
         height: 100%;
+        */
     } 
 
     .navbar-custom{ background:var(--nav-bg); box-shadow:0 2px 4px rgba(0,0,0,.1); }
@@ -189,27 +195,6 @@
                 <p><strong>Pinelopi Liakou</strong> is a third year law student of AUTh and for this academic year she has the honour of serving as the President of the United Nations Society of Aristotle University of Thessaloniki (UNSOC AUTh).</p><p>Since the first year of her studies , MUNs constitute an integral part of her academic journey, as she has always been interested in international and European law, diplomacy and human rights. The MUN experience is one of “the little things” in her life that really changed it!</p><p>This year marks her third year as a Member of UNSOC AUTh and the second as a Member of the Executive Board, since last year she had the honour of serving as the Society’s MUN Director.</p>
               ">
         Pinelopi Liakou
-      </button>
-      <button class="role-btn"
-              data-name="Advisor 6 Name"
-              data-role="Senior Student Advisor"
-              data-img="images/advisor-placeholder.png"
-              data-info="<p><strong>Name:</strong> (to be announced)</p><p><strong>Role Summary:</strong> Senior Student Advisors provide high-level youth perspective and mentorship to the core team.</p>">
-        Senior Student Advisor 6 (to be announced)
-      </button>
-      <button class="role-btn"
-              data-name="Advisor 7 Name"
-              data-role="Advisory Board Member"
-              data-img="images/advisor-placeholder.png"
-              data-info="<p><strong>Name:</strong> (to be announced)</p><p><strong>Role Summary:</strong> Advisory Board Members offer expert guidance on academic standards and operational strategy.</p>">
-        Advisory Board Member 7 (to be announced)
-      </button>
-      <button class="role-btn"
-              data-name="Advisor 8 Name"
-              data-role="Advisory Board Member"
-              data-img="images/advisor-placeholder.png"
-              data-info="<p><strong>Name:</strong> (to be announced)</p><p><strong>Role Summary:</strong> Advisory Board Members offer expert guidance on academic standards and operational strategy.</p>">
-        Advisory Board Member 8 (to be announced)
       </button>
     </div>
     
@@ -439,7 +424,7 @@
                 
                 <h4 style='color: var(--teal);'>Chair: Kira Polymeri</h4>
                 <div id='collapseKira' class='collapse'>
-                    <p>I am <strong>Kira Polymeri</strong>, I am 18 year old and I am currently attending my first year of business administration in the university of Aegean in Chios. I attended MUN conferences all throughout high school. I love animals and I have one dog, I read a lot of literature specifically high fantasy and dystopia. I would describe me as a very creative and imaginative person. My biggest passions are horse riding and acting both of which I have been doing for the most part of my life! I am looking forward to meeting and working with everyone in this MUN session!</p>
+                    <p>I am <strong>Kira Polymeri</strong>, I am 18 year old and I am currently attending my first year of business administration in the university of Aegean in Chios. I attended MUN conferences all throughout high school. I love animals and I have one dog, I read a lot of literature specifically high fantasy and dystopia. I woulddescribe me as a very creative and imaginative person. My biggest passions are horse riding and acting both of which I have been doing for the most part of my life! I am looking forward to meeting and working with everyone in this MUN session!</p>
                 </div>
                 <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseKira' aria-expanded='false' aria-controls='collapseKira'>
                     [Show Bio]
@@ -515,11 +500,11 @@
               data-committee="Economic and Social Council"
               data-img1="kaimakamis.jpg"
               data-img2="triantafyllou.jpeg"
-              data-img3="chrysostomidou.jpeg"
+              data-img3="rafailia.jpg"
               data-info="
                 <h4 style='color: var(--teal);'>Chair: Konstantinos Kaimakamis</h4>
                 <h4 style='color: var(--teal);'>Vice Chair: Angelos Triantafyllou</h4>
-                <h4 style='color: var(--teal);'>Vice Chair: Rafaela Chrysostomidou</h4>
+                <h4 style='color: var(--teal);'>Vice Chair: Rafailia Chrysostomidou  (Vice-Chair) </h4>
                 
                 <hr style='border-top: 1px dashed var(--gold); margin: 1rem 0;'>
 
@@ -543,11 +528,11 @@
 
                 <hr style='border-top: 1px dashed var(--gold); margin: 1rem 0;'>
                 
-                <h4 style='color: var(--teal);'>Vice Chair: Rafaela Chrysostomidou</h4>
-                <div id='collapseRafaela' class='collapse'>
-                    <p>My name is <strong>Rafaela Chrysostomidou</strong>, I’m 16 years old and a student at the Experimental School of the Aristotle University of Thessaloniki. My journey with MUN began back in middle school, when I first joined the club out of curiosity. At my first conference, I was a substitute delegate in the UNESCO committee, and it was truly one of the best experiences of my life. Since then, I’ve participated in several conferences, including the UNICEF committee, and last year in SOCHUM, where I was proud to represent the United States and even receive an award. MUN has become an important part of my life, helping me grow, gain confidence, and understand the value of diplomacy and teamwork. Through the years, I’ve also explored a wide range of global issues, and I’m thrilled to experience MUN this year from a new perspective as Chair guiding delegates and helping them feel confident, inspired, and excited throughout the conference.</p>
+                <h4 style='color: var(--teal);'>Vice Chair: Rafailia Chrysostomidou</h4>
+                <div id='collapseIrene' class='collapse'>
+                    <p></p>
                 </div>
-                <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseRafaela' aria-expanded='false' aria-controls='collapseRafaela'>
+                <button class='collapse-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapseIrene' aria-expanded='false' aria-controls='collapseIrene'>
                     [Show Bio]
                 </button>
               ">
@@ -842,7 +827,7 @@
       <li>Polyzou, Argyro (1st Senior Highschool of Pylea)</li>
       <li>Sgoura, Anna (1st Junior Highschool of Pylea)</li>
       <li>Symeonidou, Aikaterini (1st Junior Highschool of Pylea)</li>
-      <li>Tsagalidis, Ioanna-Eleni (1st Junior Highschool of Pylea)</li>
+      <li>Tsagalidou, Ioanna-Eleni (1st Junior Highschool of Pylea)</li>
       <li>Tsanidis, Georgios (1st Junior Highschool of Pylea)</li>
       <li>Tsimpida, Amalia (1st Junior Highschool of Pylea)</li>
       <li>Trontzios, Stylianos (1st Junior Highschool of Pylea)</li>
